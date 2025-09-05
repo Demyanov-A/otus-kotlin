@@ -1,18 +1,17 @@
 plugins {
-    kotlin("jvm") version "2.2.0"
+    kotlin("jvm") apply false
 }
 
 group = "ru.demyanovaf.kotlin"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
+allprojects{
+    repositories {
+        mavenCentral()
+    }
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
-}
-
-tasks.test {
-    useJUnitPlatform()
+subprojects{
+    group = rootProject.group
+    version = rootProject.version
 }
