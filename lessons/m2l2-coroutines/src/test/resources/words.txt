@@ -1,0 +1,12 @@
+kill
+sport
+window
+fork
+ball
+sleep
+night
+day
+sun
+white
+black
+middle
