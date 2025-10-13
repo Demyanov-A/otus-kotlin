@@ -1,6 +1,6 @@
-pluginManagement{
+pluginManagement {
     val kotlinVersion: String by settings
-    plugins{
+    plugins {
         kotlin("jvm") version kotlinVersion
     }
 }
@@ -11,4 +11,5 @@ plugins {
 
 rootProject.name = "otus-kotlin"
 
-include("m1l1-hw")
+includeBuild("lessons")
+includeBuild("study-project")
