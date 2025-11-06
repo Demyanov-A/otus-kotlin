@@ -24,3 +24,4 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 //include(":m2l4-hw")
 include(":study-project-api-v1-jackson")
+include(":study-project-common")
