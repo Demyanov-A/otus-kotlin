@@ -7,10 +7,9 @@ enum class MgrStubs {
     BAD_ID,
     BAD_TITLE,
     BAD_DESCRIPTION,
-    BAD_VISIBILITY,
+    BAD_CATEGORY,
+    BAD_STATUS,
     CANNOT_DELETE,
     BAD_SEARCH_STRING,
-    DB_ERROR,
-    BAD_CATEGORY,
-    BAD_STATUS
+    DB_ERROR
 }
