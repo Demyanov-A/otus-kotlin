@@ -3,7 +3,7 @@ package ru.demyanovaf.kotlin.taskManager.common.models
 enum class MgrStatus {
     NONE,
     NEW,
-    TODO,
+    TO_DO,
     IN_PROGRESS,
     CANCELED,
     HOLD,
