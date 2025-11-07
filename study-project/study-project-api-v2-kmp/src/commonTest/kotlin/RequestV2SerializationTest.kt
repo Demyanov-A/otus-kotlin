@@ -1,13 +1,13 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2
 
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Category
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.IRequest
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.Status
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateObject
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateRequest
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDebug
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugMode
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugStubs
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.IRequest
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.Status
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals

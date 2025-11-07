@@ -2,7 +2,13 @@ package ru.demyanovaf.kotlin.taskManager.api.v2.mappers
 
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.*
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
-import ru.demyanovaf.kotlin.taskManager.common.models.*
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskFilter
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrWorkMode
 import ru.demyanovaf.kotlin.taskManager.common.stubs.MgrStubs
 

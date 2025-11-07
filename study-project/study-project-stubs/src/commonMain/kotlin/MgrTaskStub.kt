@@ -1,14 +1,14 @@
 package ru.demyanovaf.kotlin.taskManager.stubs
 
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
 import ru.demyanovaf.kotlin.taskManager.stubs.MgrStubTasks.TASK_CANCELED_LOW
 import ru.demyanovaf.kotlin.taskManager.stubs.MgrStubTasks.TASK_DONE_LOW
+import ru.demyanovaf.kotlin.taskManager.stubs.MgrStubTasks.TASK_HOLD_LOW
 import ru.demyanovaf.kotlin.taskManager.stubs.MgrStubTasks.TASK_IN_PROGRESS_LOW
 import ru.demyanovaf.kotlin.taskManager.stubs.MgrStubTasks.TASK_NEW_LOW
 import ru.demyanovaf.kotlin.taskManager.stubs.MgrStubTasks.TASK_TODO_LOW
-import ru.demyanovaf.kotlin.taskManager.stubs.MgrStubTasks.TASK_HOLD_LOW
 
 object MgrTaskStub {
     fun get(): MgrTask = TASK_NEW_LOW.copy()

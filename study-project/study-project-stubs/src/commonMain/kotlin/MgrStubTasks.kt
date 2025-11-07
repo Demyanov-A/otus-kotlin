@@ -1,6 +1,12 @@
 package ru.demyanovaf.kotlin.taskManager.stubs
 
-import ru.demyanovaf.kotlin.taskManager.common.models.*
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskPermissionClient
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrUserId
 
 object MgrStubTasks {
     val TASK_NEW_LOW: MgrTask

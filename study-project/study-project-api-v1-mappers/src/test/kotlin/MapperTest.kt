@@ -5,18 +5,18 @@ import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskDebug
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskRequestDebugMode
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskRequestDebugStubs
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrError
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrRequestId
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrUserId
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrWorkMode
 import ru.demyanovaf.kotlin.taskManager.common.stubs.MgrStubs
 import ru.demyanovaf.kotlin.taskManager.mappers.v1.fromTransport
-import ru.demyanovaf.kotlin.taskManager.mappers.v1.toTransportTask
 import ru.demyanovaf.kotlin.taskManager.mappers.v1.toTransportCreateTask
+import ru.demyanovaf.kotlin.taskManager.mappers.v1.toTransportTask
 import ru.demyanovaf.kotlin.taskManager.stubs.MgrTaskStub
 import kotlin.test.assertEquals
 

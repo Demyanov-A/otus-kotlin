@@ -1,6 +1,10 @@
 package ru.demyanovaf.kotlin.taskManager.api.v1
 
-import ru.demyanovaf.kotlin.taskManager.api.v1.models.*
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.Category
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.IResponse
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.Status
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskCreateResponse
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskResponseObject
 import java.time.Instant
 import kotlin.test.Test
 import kotlin.test.assertContains

@@ -1,9 +1,29 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2.mappers
 
-import ru.demyanovaf.kotlin.taskManager.common.exceptions.UnknownMgrCommand
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.*
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.Category
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.Error
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.IResponse
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.ResponseResult
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.Status
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateResponse
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDeleteResponse
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskPermissions
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskReadResponse
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskResponseObject
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskSearchResponse
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskUpdateResponse
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
-import ru.demyanovaf.kotlin.taskManager.common.models.*
+import ru.demyanovaf.kotlin.taskManager.common.exceptions.UnknownMgrCommand
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrError
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskPermissionClient
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrUserId
 
 fun MgrContext.toTransportTask(): IResponse = when (val cmd = command) {
     MgrCommand.CREATE -> toTransportCreate()

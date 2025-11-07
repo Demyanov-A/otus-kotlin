@@ -1,12 +1,21 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2.mappers
 
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.*
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDebug
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugMode
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugStubs
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskUpdateRequest
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskUpdateResponse
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
-import ru.demyanovaf.kotlin.taskManager.common.models.*
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrError
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrRequestId
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrUserId
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrWorkMode
 import ru.demyanovaf.kotlin.taskManager.common.stubs.MgrStubs
 import ru.demyanovaf.kotlin.taskManager.stubs.MgrTaskStub
-import kotlin.test.assertEquals
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class MapperUpdateTest {
     @Test

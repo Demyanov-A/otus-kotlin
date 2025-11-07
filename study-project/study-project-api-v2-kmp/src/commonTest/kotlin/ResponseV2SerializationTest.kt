@@ -1,10 +1,10 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2
 
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Category
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateResponse
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskResponseObject
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.IResponse
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Status
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateResponse
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskResponseObject
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
