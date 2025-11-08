@@ -24,16 +24,19 @@ ext {
 }
 
 tasks {
-    register("build" ) {
-        group = "build"
-    }
-    register("check" ) {
-        group = "verification"
-        subprojects.forEach { proj ->
-            println("PROJ $proj")
-            proj.getTasksByName("check", false).also {
-                this@register.dependsOn(it)
+    fun taskRegistration(taskName: String, taskGroup: String){
+        register(taskName) {
+            group = taskGroup
+            subprojects.forEach { proj ->
+                println("PROJ $proj")
+                proj.getTasksByName(taskName, false).also {
+                    this@register.dependsOn(it)
+                }
             }
         }
     }
+
+    taskRegistration("build","build")
+    taskRegistration("clean","build")
+    taskRegistration("check","verification")
 }

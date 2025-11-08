@@ -3,7 +3,7 @@ plugins {
     id("maven-publish")
 }
 
-group = "ru.demyanovaf.taskManager.tests"
+group = "ru.demyanovaf.kotlin.taskManager.tests"
 version = "0.1.0"
 
 allprojects {
@@ -32,7 +32,7 @@ publishing {
     }
     publications {
         create<MavenPublication>("maven") {
-            groupId = "ru.demyanovaf.taskManager"
+            groupId = "ru.demyanovaf.kotlin.taskManager"
             artifactId = "dcompose"
             version = "1.0"
 

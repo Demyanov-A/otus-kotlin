@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/task/read"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "responseType": "read",
+      "result": "success",
+      "task": {
+        "id": "{{{jsonPath request.body '$.task.id'}}}",
+        "title": "Задача №1",
+        "description": "Задача №1",
+        "status": "new",
+        "category": "low",
+        "dtCreate": "{{{jsonPath request.body '$.task.dtCreate'}}}",
+        "deadline": "{{{jsonPath request.body '$.task.deadline'}}}",
+        "userId": "{{{jsonPath request.body '$.task.userId'}}}"
+      }
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "transformers": [
+      "response-template"
+    ]
+  }
+}

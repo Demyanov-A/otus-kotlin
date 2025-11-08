@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/task/delete"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "responseType": "delete",
+      "result": "success",
+      "task": {
+        "id": "{{{jsonPath request.body '$.task.id'}}}",
+        "title": "Задача №1",
+        "description": "Задача №1",
+        "status": "new",
+        "category": "low"
+      }
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "transformers": [
+      "response-template"
+    ]
+  }
+}
