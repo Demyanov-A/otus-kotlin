@@ -20,6 +20,6 @@ subprojects {
 tasks {
     register("buildInfra") {
         group = "build"
-        dependsOn(project(":otus-kotlin-dcompose").getTasksByName("publish",false))
+        dependsOn(project(":ok-dcompose").getTasksByName("publish",false))
     }
 }
