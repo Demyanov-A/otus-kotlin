@@ -20,12 +20,11 @@ pluginManagement {
     }
 }
 
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
-}
-
-// Включает вот такую конструкцию
-//implementation(projects.m2l5Gradle.sub1.ssub1)
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-include(":m2l4-hw")
+//include(":m2l4-hw")
+include(":study-project-api-v1-jackson")
+include(":study-project-api-v1-mappers")
+include(":study-project-api-v2-kmp")
+include(":study-project-common")
+include(":study-project-stubs")

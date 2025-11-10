@@ -12,3 +12,5 @@ plugins {
 rootProject.name = "otus-kotlin"
 
 includeBuild("study-project")
+includeBuild("otus-kotlin-dcompose")
+includeBuild("study-project-tests")

@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/task/create"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "responseType": "create",
+      "result": "success",
+      "task": {
+        "id": "123",
+        "title": "{{{jsonPath request.body '$.task.title'}}}",
+        "description": "Задача №1",
+        "status": "{{{jsonPath request.body '$.task.status'}}}",
+        "category": "{{{jsonPath request.body '$.task.category'}}}",
+        "dtCreate": "{{{jsonPath request.body '$.task.dtCreate'}}}",
+        "deadline": "{{{jsonPath request.body '$.task.deadline'}}}",
+        "userId": "{{{jsonPath request.body '$.task.userId'}}}"
+      }
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "transformers": [
+      "response-template"
+    ]
+  }
+}

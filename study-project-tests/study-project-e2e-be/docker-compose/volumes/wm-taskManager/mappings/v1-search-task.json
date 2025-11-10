@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/task/search",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$.taskFilter[?(@.searchString == 'new')]"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "responseType": "search",
+      "result": "success",
+      "tasks": [
+        {
+          "id": "123",
+          "title": "Задача №1",
+          "description": "Задача №1",
+          "status": "new",
+          "category": "low"
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
