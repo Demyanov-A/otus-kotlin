@@ -3,6 +3,6 @@
 version: '3'
 services:
   app-ktor:
-    image: ok-marketplace-app-ktor-ktor:1.0-SNAPSHOT
+    image: study-project-app-ktor-ktor:1.0-SNAPSHOT
     ports:
       - "8080:8080"

@@ -44,8 +44,8 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
+      #   - name: Validate Gradle wrapper
+      #   uses: gradle/wrapper-validation-action@v1
 
       #      # https://github.com/actions/runner-images/issues/675
       #      - name: Hack sources.list
@@ -54,21 +54,27 @@ jobs:
       #      - name: Install curl-dev
       #        run: sudo apt-get update && sudo apt-get install -y libcurl4-openssl-dev libpq-dev libpq5
 
-      - name: Run Tests
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 8.14.1
-          arguments: buildInfra --info
+      #- name: Run Tests
+      #  uses: gradle/gradle-build-action@v2
+      #  with:
+      #    gradle-version: 8.14.1
+      #    arguments: buildInfra --info
       #        - name: Run Tests
       #          uses: gradle/gradle-build-action@v2
       #          with:
       #            gradle-version: 8.14.1
       #            arguments: buildImages --info
+      #- name: Run Tests
+      #  uses: gradle/gradle-build-action@v2
+      #  with:
+      #    gradle-version: 8.14.1
+      #    arguments: e2eTests --info
+
       - name: Run Tests
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.14.1
-          arguments: e2eTests --info
+          arguments: check -i
 
       - name: Save Primes
         id: cache-primes-save

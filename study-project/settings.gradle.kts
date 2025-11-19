@@ -26,5 +26,11 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":study-project-api-v1-jackson")
 include(":study-project-api-v1-mappers")
 include(":study-project-api-v2-kmp")
+include(":study-project-api-log1")
+
+include(":study-project-app-common")
+include(":study-project-app-tmp")
+
 include(":study-project-common")
 include(":study-project-stubs")
+

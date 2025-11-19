@@ -57,7 +57,7 @@ services:
       - app-tier
 
   app-kafka:
-    image: ok-marketplace-app-kafka:latest
+    image: study-project-app-kafka:latest
     depends_on:
       kafka:
         condition: service_healthy
