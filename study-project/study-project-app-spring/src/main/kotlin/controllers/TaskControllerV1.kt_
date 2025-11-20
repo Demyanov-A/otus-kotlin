@@ -1,0 +1,54 @@
+package ru.demyanovaf.kotlin.taskManager.app.spring.controllers
+
+import org.springframework.web.bind.annotation.*
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.*
+import ru.demyanovaf.kotlin.taskManager.biz.MgrTaskProcessor
+import ru.demyanovaf.kotlin.taskManager.common.MgrContext
+import ru.demyanovaf.kotlin.taskManager.mappers.v1.*
+
+@Suppress("unused")
+@RestController
+@RequestMapping("v1/task")
+class TaskControllerV1(private val processor: MgrTaskProcessor) {
+
+    // v1/task/create
+    @PostMapping("create")
+    suspend fun create(@RequestBody request: TaskCreateRequest): TaskCreateResponse {
+        val context = MgrContext()
+        context.fromTransport(request)
+        processor.exec(context)
+        return context.toTransportCreate()
+    }
+
+    @PostMapping("read")
+    suspend fun read(@RequestBody request: TaskReadRequest): TaskReadResponse {
+        val context = MgrContext()
+        context.fromTransport(request)
+        processor.exec(context)
+        return context.toTransportRead()
+    }
+
+    @RequestMapping("update", method = [RequestMethod.POST])
+    suspend fun update(@RequestBody request: TaskUpdateRequest): TaskUpdateResponse {
+        val context = MgrContext()
+        context.fromTransport(request)
+        processor.exec(context)
+        return context.toTransportUpdate()
+    }
+
+    @PostMapping("delete")
+    suspend fun delete(@RequestBody request: TaskDeleteRequest): TaskDeleteResponse {
+        val context = MgrContext()
+        context.fromTransport(request)
+        processor.exec(context)
+        return context.toTransportDelete()
+    }
+
+    @PostMapping("search")
+    suspend fun search(@RequestBody request: TaskSearchRequest): TaskSearchResponse {
+        val context = MgrContext()
+        context.fromTransport(request)
+        processor.exec(context)
+        return context.toTransportSearch()
+    }
+}

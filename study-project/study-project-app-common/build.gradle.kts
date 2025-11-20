@@ -12,6 +12,8 @@ kotlin {
                 // transport models
                 implementation(project(":study-project-common"))
                 implementation(project(":study-project-api-log1"))
+                implementation(project(":study-project-api-v2-kmp"))
+                implementation(project(":study-project-biz"))
             }
         }
         commonTest {
@@ -20,6 +22,7 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
 
                 implementation(libs.coroutines.core)
+                implementation(libs.coroutines.test)
             }
         }
 
