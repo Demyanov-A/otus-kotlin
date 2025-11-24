@@ -18,7 +18,7 @@ import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskSearchResponse
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskUpdateRequest
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskUpdateResponse
 import ru.demyanovaf.kotlin.taskManager.app.common.controllerHelper
-import ru.demyanovaf.kotlin.taskManager.app.spring.config.MgrAppSettings
+import ru.demyanovaf.kotlin.taskManager.app.spring.base.MgrAppSettings
 import ru.demyanovaf.kotlin.taskManager.mappers.v1.fromTransport
 import ru.demyanovaf.kotlin.taskManager.mappers.v1.toTransportTask
 import kotlin.reflect.KClass

@@ -20,7 +20,7 @@ import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskSearchResponse
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskUpdateRequest
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskUpdateResponse
 import ru.demyanovaf.kotlin.taskManager.app.common.controllerHelper
-import ru.demyanovaf.kotlin.taskManager.app.spring.config.MgrAppSettings
+import ru.demyanovaf.kotlin.taskManager.app.spring.base.MgrAppSettings
 import kotlin.reflect.KClass
 
 @Suppress("unused")

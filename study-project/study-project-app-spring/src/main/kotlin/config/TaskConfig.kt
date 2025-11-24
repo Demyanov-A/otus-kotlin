@@ -2,6 +2,8 @@ package ru.demyanovaf.kotlin.taskManager.app.spring.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import ru.demyanovaf.kotlin.taskManager.app.spring.base.MgrAppSettings
+import ru.demyanovaf.kotlin.taskManager.app.spring.base.SpringWsSessionRepo
 import ru.demyanovaf.kotlin.taskManager.biz.MgrTaskProcessor
 import ru.demyanovaf.kotlin.taskManager.common.MgrCorSettings
 import ru.demyanovaf.kotlin.taskManager.logging.common.TmLoggerProvider
@@ -19,6 +21,7 @@ class TaskConfig {
     @Bean
     fun corSettings(): MgrCorSettings = MgrCorSettings(
         loggerProvider = loggerProvider(),
+        wsSessions = wsRepo(),
     )
 
     @Bean
@@ -29,4 +32,7 @@ class TaskConfig {
         corSettings = corSettings,
         processor = processor,
     )
+    @Bean
+    fun wsRepo(): SpringWsSessionRepo = SpringWsSessionRepo()
+
 }

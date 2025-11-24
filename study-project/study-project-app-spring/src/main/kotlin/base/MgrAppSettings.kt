@@ -1,4 +1,4 @@
-package ru.demyanovaf.kotlin.taskManager.app.spring.config
+package ru.demyanovaf.kotlin.taskManager.app.spring.base
 
 import ru.demyanovaf.kotlin.taskManager.app.common.IMgrAppSettings
 import ru.demyanovaf.kotlin.taskManager.biz.MgrTaskProcessor

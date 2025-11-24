@@ -35,7 +35,8 @@ suspend inline fun <T> IMgrAppSettings.controllerHelper(
         logger.error(
             msg = "Request $logId failed for ${clazz.simpleName}",
             marker = "BIZ",
-            data = ctx.toLog(logId)
+            data = ctx.toLog(logId),
+            e = e,
         )
         ctx.state = MgrState.FAILING
         ctx.errors.add(e.asMgrError())
