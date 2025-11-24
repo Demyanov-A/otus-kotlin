@@ -1,5 +1,6 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2
 
+import kotlinx.serialization.encodeToString
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Category
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.IResponse
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Status
