@@ -31,6 +31,7 @@ include(":study-project-api-log1")
 include(":study-project-app-common")
 include(":study-project-app-tmp")
 include(":study-project-app-spring")
+include(":study-project-app-rabbit")
 
 include(":study-project-common")
 include(":study-project-stubs")
