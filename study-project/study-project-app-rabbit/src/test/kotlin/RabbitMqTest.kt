@@ -26,12 +26,12 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateObject as AdCreateObjectV2
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateRequest as AdCreateRequestV2
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateResponse as AdCreateResponseV2
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDebug as AdDebugV2
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugMode as AdRequestDebugModeV2
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugStubs as AdRequestDebugStubsV2
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateObject as TaskCreateObjectV2
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateRequest as TaskCreateRequestV2
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateResponse as TaskCreateResponseV2
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDebug as TaskDebugV2
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugMode as TaskRequestDebugModeV2
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugStubs as TaskRequestDebugStubsV2
 
 //  тесты с использованием testcontainers
 internal class RabbitMqTest {
@@ -101,7 +101,7 @@ internal class RabbitMqTest {
     }
 
     @Test
-    fun adCreateTestV1() {
+    fun TaskCreateTestV1() {
         val (keyOut, keyIn) = with(appSettings.controllersConfigV1) { Pair(keyOut, keyIn) }
         val (tstHost, tstPort) = with(appSettings.rabbit) { Pair(host, port) }
         ConnectionFactory().apply {
@@ -142,7 +142,7 @@ internal class RabbitMqTest {
     }
 
     @Test
-    fun adCreateTestV2() {
+    fun TaskCreateTestV2() {
         val (keyOut, keyIn) = with(appSettings.controllersConfigV2) { Pair(keyOut, keyIn) }
         val (tstHost, tstPort) = with(appSettings.rabbit) { Pair(host, port) }
         ConnectionFactory().apply {
@@ -173,7 +173,7 @@ internal class RabbitMqTest {
                 }
 
                 println("RESPONSE: $responseJson")
-                val response = apiV2ResponseDeserialize<AdCreateResponseV2>(responseJson)
+                val response = apiV2ResponseDeserialize<TaskCreateResponseV2>(responseJson)
                 val expected = MgrTaskStub.get()
                 assertEquals(expected.title, response.task?.title)
                 assertEquals(expected.description, response.task?.description)
@@ -196,14 +196,14 @@ internal class RabbitMqTest {
     }
 
     private val boltCreateV2 = with(MgrTaskStub.get()) {
-        AdCreateRequestV2(
-            task = AdCreateObjectV2(
+        TaskCreateRequestV2(
+            task = TaskCreateObjectV2(
                 title = title,
                 description = description
             ),
-            debug = AdDebugV2(
-                mode = AdRequestDebugModeV2.STUB,
-                stub = AdRequestDebugStubsV2.SUCCESS
+            debug = TaskDebugV2(
+                mode = TaskRequestDebugModeV2.STUB,
+                stub = TaskRequestDebugStubsV2.SUCCESS
             )
         )
     }

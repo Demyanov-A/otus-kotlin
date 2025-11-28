@@ -32,9 +32,8 @@ include(":study-project-app-common")
 include(":study-project-app-tmp")
 include(":study-project-app-spring")
 include(":study-project-app-rabbit")
+include(":study-project-app-kafka")
 
 include(":study-project-common")
 include(":study-project-stubs")
 include(":study-project-biz")
-
-

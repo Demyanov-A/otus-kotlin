@@ -42,10 +42,10 @@ static_resources:
                     "@type": type.googleapis.com/envoy.extensions.filters.http.jwt_authn.v3.JwtAuthentication
                     providers:
                       keycloak_provider:
-                        issuer: "http://localhost:8080/realms/otus-marketplace"
+                        issuer: "http://localhost:8080/realms/otus-taskManager"
                         remote_jwks:
                           http_uri:
-                            uri: http://keycloak:8080/realms/otus-marketplace/protocol/openid-connect/certs
+                            uri: http://keycloak:8080/realms/otus-taskManager/protocol/openid-connect/certs
                             cluster: keycloak
                             timeout: 5s
                           cache_duration:
