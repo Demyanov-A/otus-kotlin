@@ -9,6 +9,7 @@ import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskFilter
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrWorkMode
 import ru.demyanovaf.kotlin.taskManager.common.stubs.MgrStubs
+import ru.demyanovaf.kotlin.taskManager.common.ws.IMgrWsSession
 
 data class MgrContext(
     var command: MgrCommand = MgrCommand.NONE,
@@ -17,6 +18,7 @@ data class MgrContext(
 
     var workMode: MgrWorkMode = MgrWorkMode.PROD,
     var stubCase: MgrStubs = MgrStubs.NONE,
+    var wsSession: IMgrWsSession = IMgrWsSession.NONE,
 
     var requestId: MgrRequestId = MgrRequestId.NONE,
     var timeStart: Instant = Instant.NONE,

@@ -1,6 +1,21 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2.mappers
 
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.*
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.Category
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.IRequest
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.Status
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateObject
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateRequest
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDebug
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDeleteObject
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDeleteRequest
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskReadObject
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskReadRequest
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugMode
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugStubs
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskSearchFilter
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskSearchRequest
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskUpdateObject
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskUpdateRequest
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand

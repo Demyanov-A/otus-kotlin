@@ -7,4 +7,6 @@ enum class MgrCommand {
     UPDATE,
     DELETE,
     SEARCH,
+    INIT,
+    FINISH,
 }

@@ -47,8 +47,10 @@ private fun KotlinMultiplatformExtension.configureTargets(project: Project) {
 
     jvm {
         compilations.configureEach {
-            compilerOptions.configure {
-                jvmTarget.set(JvmTarget.valueOf("JVM_${libs.versions.jvm.compiler.get()}"))
+            compileTaskProvider.configure {
+                compilerOptions{
+                    jvmTarget.set(JvmTarget.valueOf("JVM_${libs.versions.jvm.compiler.get()}"))
+                }
             }
         }
     }

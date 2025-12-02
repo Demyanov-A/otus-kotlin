@@ -1,5 +1,6 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2
 
+import kotlinx.serialization.encodeToString
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Category
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.IResponse
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Status
@@ -21,7 +22,7 @@ class ResponseV2SerializationTest {
 
     @Test
     fun serialize() {
-//        val json = apiV2Mapper.encodeToString(AdRequestSerializer1, request)
+//        val json = apiV2Mapper.encodeToString(TaskRequestSerializer1, request)
 //        val json = apiV2Mapper.encodeToString(RequestSerializers.create, request)
         val json = apiV2Mapper.encodeToString(response)
 

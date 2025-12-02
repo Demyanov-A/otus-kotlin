@@ -2,7 +2,7 @@
 
 services:
   app-rabbit:
-    image: ok-marketplace-app-rabbit:latest
+    image: study-project-app-rabbit:latest
     depends_on:
       rabbit:
         condition: service_healthy

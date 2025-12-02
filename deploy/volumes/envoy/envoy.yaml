@@ -26,9 +26,9 @@ static_resources:
                     routes:
                       - match: { path: "/" }
                         route: { cluster: app }
-                      - match: { prefix: "/v1/ad/" }
+                      - match: { prefix: "/v1/task/" }
                         route: { cluster: app }
-                      - match: { prefix: "/v2/ad/" }
+                      - match: { prefix: "/v2/task/" }
                         route: { cluster: app }
                       - match: { prefix: "/admin/" }
                         route: { cluster: keycloak }
@@ -42,10 +42,10 @@ static_resources:
                     "@type": type.googleapis.com/envoy.extensions.filters.http.jwt_authn.v3.JwtAuthentication
                     providers:
                       keycloak_provider:
-                        issuer: "http://localhost:8080/realms/otus-marketplace"
+                        issuer: "http://localhost:8080/realms/otus-taskManager"
                         remote_jwks:
                           http_uri:
-                            uri: http://keycloak:8080/realms/otus-marketplace/protocol/openid-connect/certs
+                            uri: http://keycloak:8080/realms/otus-taskManager/protocol/openid-connect/certs
                             cluster: keycloak
                             timeout: 5s
                           cache_duration:
@@ -54,9 +54,9 @@ static_resources:
                         forward: true
                         forward_payload_header: x-jwt-payload
                     rules:
-                      - match: { prefix: /v1/ad/ }
+                      - match: { prefix: /v1/task/ }
                         requires: { provider_name: keycloak_provider }
-                      - match: { prefix: /v2/ad/ }
+                      - match: { prefix: /v2/task/ }
                         requires: { provider_name: keycloak_provider }
                 - name: envoy.filters.http.router
                   typed_config:

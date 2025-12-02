@@ -7,6 +7,7 @@ import ru.demyanovaf.kotlin.taskManager.api.v2.models.ResponseResult
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Status
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateResponse
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDeleteResponse
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskInitResponse
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskPermissions
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskReadResponse
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskResponseObject
@@ -31,6 +32,8 @@ fun MgrContext.toTransportTask(): IResponse = when (val cmd = command) {
     MgrCommand.UPDATE -> toTransportUpdate()
     MgrCommand.DELETE -> toTransportDelete()
     MgrCommand.SEARCH -> toTransportSearch()
+    MgrCommand.INIT -> toTransportInit()
+    MgrCommand.FINISH -> throw UnknownMgrCommand(cmd)
     MgrCommand.NONE -> throw UnknownMgrCommand(cmd)
 }
 
@@ -62,6 +65,10 @@ fun MgrContext.toTransportSearch() = TaskSearchResponse(
     result = state.toResult(),
     errors = errors.toTransportErrors(),
     tasks = tasksResponse.toTransportTask()
+)
+fun MgrContext.toTransportInit() = TaskInitResponse(
+    result = state.toResult(),
+    errors = errors.toTransportErrors(),
 )
 
 fun List<MgrTask>.toTransportTask(): List<TaskResponseObject>? = this

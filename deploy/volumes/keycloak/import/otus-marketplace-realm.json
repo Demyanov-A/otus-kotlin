@@ -1,7 +1,7 @@
 {
-  "id" : "otus-marketplace",
-  "realm" : "otus-marketplace",
-  "displayName" : "Otus Marketplace",
+  "id" : "otus-taskManager",
+  "realm" : "otus-taskManager",
+  "displayName" : "Otus taskManager",
   "notBefore" : 0,
   "defaultSignatureAlgorithm" : "RS256",
   "revokeRefreshToken" : false,
@@ -47,7 +47,7 @@
   "roles" : {
     "realm" : [ {
       "id" : "ec06542b-8c8a-4fa1-a605-1594b17250b4",
-      "name" : "default-roles-otus-marketplace",
+      "name" : "default-roles-otus-taskManager",
       "description" : "${role_default-roles}",
       "composite" : true,
       "composites" : {
@@ -57,7 +57,7 @@
         }
       },
       "clientRole" : false,
-      "containerId" : "otus-marketplace",
+      "containerId" : "otus-taskManager",
       "attributes" : { }
     }, {
       "id" : "e0ed7ba1-870a-443d-bd59-470a22a336ec",
@@ -65,7 +65,7 @@
       "description" : "${role_uma_authorization}",
       "composite" : false,
       "clientRole" : false,
-      "containerId" : "otus-marketplace",
+      "containerId" : "otus-taskManager",
       "attributes" : { }
     }, {
       "id" : "faaa28ab-a7db-4336-a16f-32f55bb16112",
@@ -73,11 +73,11 @@
       "description" : "${role_offline-access}",
       "composite" : false,
       "clientRole" : false,
-      "containerId" : "otus-marketplace",
+      "containerId" : "otus-taskManager",
       "attributes" : { }
     } ],
     "client" : {
-      "otus-marketplace-service" : [ {
+      "otus-taskManager-service" : [ {
         "id" : "f7e5668b-1f4d-4dff-aa98-9e5225b43e7d",
         "name" : "USER",
         "composite" : false,
@@ -348,16 +348,16 @@
     "path" : "/USER",
     "subGroups" : [ ],
     "attributes" : { },
-    "realmRoles" : [ "default-roles-otus-marketplace" ],
+    "realmRoles" : [ "default-roles-otus-taskManager" ],
     "clientRoles" : { }
   } ],
   "defaultRole" : {
     "id" : "ec06542b-8c8a-4fa1-a605-1594b17250b4",
-    "name" : "default-roles-otus-marketplace",
+    "name" : "default-roles-otus-taskManager",
     "description" : "${role_default-roles}",
     "composite" : true,
     "clientRole" : false,
-    "containerId" : "otus-marketplace"
+    "containerId" : "otus-taskManager"
   },
   "defaultGroups" : [ "/USER" ],
   "requiredCredentials" : [ "password" ],
@@ -396,8 +396,8 @@
     "clientScope" : "offline_access",
     "roles" : [ "offline_access" ]
   }, {
-    "clientScope" : "otus-marketplace",
-    "roles" : [ "default-roles-otus-marketplace" ]
+    "clientScope" : "otus-taskManager",
+    "roles" : [ "default-roles-otus-taskManager" ]
   } ],
   "clientScopeMappings" : {
     "account" : [ {
@@ -410,12 +410,12 @@
     "clientId" : "account",
     "name" : "${client_account}",
     "rootUrl" : "${authBaseUrl}",
-    "baseUrl" : "/realms/otus-marketplace/account/",
+    "baseUrl" : "/realms/otus-taskManager/account/",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "/realms/otus-marketplace/account/*" ],
+    "redirectUris" : [ "/realms/otus-taskManager/account/*" ],
     "webOrigins" : [ ],
     "notBefore" : 0,
     "bearerOnly" : false,
@@ -440,12 +440,12 @@
     "clientId" : "account-console",
     "name" : "${client_account-console}",
     "rootUrl" : "${authBaseUrl}",
-    "baseUrl" : "/realms/otus-marketplace/account/",
+    "baseUrl" : "/realms/otus-taskManager/account/",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "/realms/otus-marketplace/account/*" ],
+    "redirectUris" : [ "/realms/otus-taskManager/account/*" ],
     "webOrigins" : [ ],
     "notBefore" : 0,
     "bearerOnly" : false,
@@ -532,7 +532,7 @@
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {
     "id" : "96b7d5f3-b04b-4460-9f7a-faf964c583a5",
-    "clientId" : "otus-marketplace-service",
+    "clientId" : "otus-taskManager-service",
     "rootUrl" : "http://localhost:8080",
     "surrogateAuthRequired" : false,
     "enabled" : true,
@@ -642,12 +642,12 @@
     "clientId" : "security-admin-console",
     "name" : "${client_security-admin-console}",
     "rootUrl" : "${authAdminUrl}",
-    "baseUrl" : "/admin/otus-marketplace/console/",
+    "baseUrl" : "/admin/otus-taskManager/console/",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "/admin/otus-marketplace/console/*" ],
+    "redirectUris" : [ "/admin/otus-taskManager/console/*" ],
     "webOrigins" : [ "+" ],
     "notBefore" : 0,
     "bearerOnly" : false,
@@ -1109,7 +1109,7 @@
     }
   }, {
     "id" : "d51fdf5d-d297-4b3b-ac78-f002c8517398",
-    "name" : "otus-marketplace",
+    "name" : "otus-taskManager",
     "protocol" : "openid-connect",
     "attributes" : {
       "include.in.token.scope" : "true",
