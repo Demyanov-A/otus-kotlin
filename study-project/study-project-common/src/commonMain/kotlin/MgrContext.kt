@@ -26,6 +26,12 @@ data class MgrContext(
     var taskRequest: MgrTask = MgrTask(),
     var taskFilterRequest: MgrTaskFilter = MgrTaskFilter(),
 
+    var taskValidating: MgrTask = MgrTask(),
+    var taskFilterValidating: MgrTaskFilter = MgrTaskFilter(),
+
+    var taskValidated: MgrTask = MgrTask(),
+    var taskFilterValidated: MgrTaskFilter = MgrTaskFilter(),
+
     var taskResponse: MgrTask = MgrTask(),
     var tasksResponse: MutableList<MgrTask> = mutableListOf(),
 )

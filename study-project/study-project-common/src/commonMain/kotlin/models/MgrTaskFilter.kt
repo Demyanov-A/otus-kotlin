@@ -9,4 +9,12 @@ data class MgrTaskFilter(
     var status: MgrStatus = MgrStatus.NONE,
     var deadline: Instant = Instant.NONE,
     var dtCreate: Instant = Instant.NONE,
-)
+){
+    fun deepCopy(): MgrTaskFilter = copy()
+
+    fun isEmpty() = this == NONE
+
+    companion object {
+        private val NONE = MgrTaskFilter()
+    }
+}

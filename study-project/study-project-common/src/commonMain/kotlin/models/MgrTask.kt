@@ -15,6 +15,10 @@ data class MgrTask(
     var lock: MgrTaskLock = MgrTaskLock.NONE,
     val permissionsClient: MutableSet<MgrTaskPermissionClient> = mutableSetOf(),
 ) {
+    fun deepCopy(): MgrTask = copy(
+        permissionsClient = permissionsClient.toMutableSet(),
+    )
+
     fun isEmpty() = this == NONE
 
     companion object {
