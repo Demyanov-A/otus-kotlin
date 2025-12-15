@@ -16,6 +16,7 @@ data class MgrContext(
     var state: MgrState = MgrState.NONE,
     val errors: MutableList<MgrError> = mutableListOf(),
 
+    var corSettings: MgrCorSettings = MgrCorSettings(),
     var workMode: MgrWorkMode = MgrWorkMode.PROD,
     var stubCase: MgrStubs = MgrStubs.NONE,
     var wsSession: IMgrWsSession = IMgrWsSession.NONE,

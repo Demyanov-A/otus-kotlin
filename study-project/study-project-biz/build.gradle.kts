@@ -9,6 +9,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
+                implementation(libs.cor)
 
                 implementation(project(":study-project-common"))
                 implementation(project(":study-project-stubs"))
