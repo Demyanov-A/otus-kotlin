@@ -16,6 +16,7 @@ data class MgrContext(
     var state: MgrState = MgrState.NONE,
     val errors: MutableList<MgrError> = mutableListOf(),
 
+    var corSettings: MgrCorSettings = MgrCorSettings(),
     var workMode: MgrWorkMode = MgrWorkMode.PROD,
     var stubCase: MgrStubs = MgrStubs.NONE,
     var wsSession: IMgrWsSession = IMgrWsSession.NONE,
@@ -24,6 +25,12 @@ data class MgrContext(
     var timeStart: Instant = Instant.NONE,
     var taskRequest: MgrTask = MgrTask(),
     var taskFilterRequest: MgrTaskFilter = MgrTaskFilter(),
+
+    var taskValidating: MgrTask = MgrTask(),
+    var taskFilterValidating: MgrTaskFilter = MgrTaskFilter(),
+
+    var taskValidated: MgrTask = MgrTask(),
+    var taskFilterValidated: MgrTaskFilter = MgrTaskFilter(),
 
     var taskResponse: MgrTask = MgrTask(),
     var tasksResponse: MutableList<MgrTask> = mutableListOf(),
