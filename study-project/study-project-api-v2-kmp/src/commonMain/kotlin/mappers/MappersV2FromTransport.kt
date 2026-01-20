@@ -1,5 +1,7 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2.mappers
 
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Category
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.IRequest
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Status
@@ -17,6 +19,7 @@ import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskSearchRequest
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskUpdateObject
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskUpdateRequest
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
+import ru.demyanovaf.kotlin.taskManager.common.NONE
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
@@ -115,7 +118,10 @@ private fun TaskCreateObject.toInternal(): MgrTask = MgrTask(
     title = this.title ?: "",
     description = this.description ?: "",
     category = this.category.fromTransport(),
-    status = this.status.fromTransport(),
+    deadline = try {
+        deadline?.let { Instant.parse(it) } ?: Instant.NONE} catch (_: Exception){Instant.NONE},
+    status = MgrStatus.NEW,
+    dtCreate = Clock.System.now()
 )
 
 private fun TaskUpdateObject.toInternal(): MgrTask = MgrTask(
@@ -124,6 +130,8 @@ private fun TaskUpdateObject.toInternal(): MgrTask = MgrTask(
     description = this.description ?: "",
     category = this.category.fromTransport(),
     status = this.status.fromTransport(),
+    deadline = try {
+        deadline?.let { Instant.parse(it) } ?: Instant.NONE} catch (_: Exception){Instant.NONE},
     lock = this.lock.toTaskLock(),
 )
 
@@ -139,7 +147,7 @@ private fun Status?.fromTransport(): MgrStatus = when (this) {
 
 private fun Category?.fromTransport(): MgrCategory = when (this) {
     Category.LOW -> MgrCategory.LOW
-    Category.MIDDLE -> MgrCategory.MIDDLE
+    Category.MEDIUM -> MgrCategory.MEDIUM
     Category.HI -> MgrCategory.HI
     Category.PERSONAL -> MgrCategory.PERSONAL
     null -> MgrCategory.NONE

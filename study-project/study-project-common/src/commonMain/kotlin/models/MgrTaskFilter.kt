@@ -7,6 +7,7 @@ data class MgrTaskFilter(
     var searchString: String = "",
     var userId: MgrUserId = MgrUserId.NONE,
     var status: MgrStatus = MgrStatus.NONE,
+    var category: MgrCategory = MgrCategory.NONE,
     var deadline: Instant = Instant.NONE,
     var dtCreate: Instant = Instant.NONE,
 ){

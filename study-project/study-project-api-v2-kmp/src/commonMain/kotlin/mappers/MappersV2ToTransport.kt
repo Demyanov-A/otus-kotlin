@@ -1,5 +1,6 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2.mappers
 
+import kotlinx.datetime.Instant
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Category
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Error
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.IResponse
@@ -14,6 +15,7 @@ import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskResponseObject
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskSearchResponse
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskUpdateResponse
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
+import ru.demyanovaf.kotlin.taskManager.common.NONE
 import ru.demyanovaf.kotlin.taskManager.common.exceptions.UnknownMgrCommand
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
@@ -22,7 +24,6 @@ import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskPermissionClient
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrUserId
 
@@ -83,8 +84,10 @@ internal fun MgrTask.toTransportTask(): TaskResponseObject = TaskResponseObject(
     userId = userId.takeIf { it != MgrUserId.NONE }?.asString(),
     category = category.toTransportTask(),
     status = status.toTransportTask(),
+    deadline = deadline.takeIf { it != Instant.NONE }?.toString(),
+    dtCreate = dtCreate.takeIf { it != Instant.NONE }?.toString(),
     permissions = permissionsClient.toTransportTask(),
-    lock = lock.takeIf { it != MgrTaskLock.NONE }?.asString()
+    lock = lock.toTransportTask(),
 )
 
 internal fun MgrTaskId.toTransportTask() = takeIf { it != MgrTaskId.NONE }?.asString()
@@ -112,7 +115,7 @@ internal fun MgrStatus.toTransportTask(): Status? = when (this) {
 
 internal fun MgrCategory.toTransportTask(): Category? = when (this) {
     MgrCategory.LOW -> Category.LOW
-    MgrCategory.MIDDLE -> Category.MIDDLE
+    MgrCategory.MEDIUM -> Category.MEDIUM
     MgrCategory.HI -> Category.HI
     MgrCategory.PERSONAL -> Category.PERSONAL
     MgrCategory.NONE -> null

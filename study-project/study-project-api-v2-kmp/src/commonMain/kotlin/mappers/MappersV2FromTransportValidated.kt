@@ -5,7 +5,7 @@ import ru.demyanovaf.kotlin.taskManager.common.MgrContext
 import ru.demyanovaf.kotlin.taskManager.common.models.*
 import ru.demyanovaf.kotlin.taskManager.common.stubs.MgrStubs
 
-// Демонстрация форматной валидации в мапере
+// Демонстрация форматной валидации в маппере
 private sealed interface Result<T,E>
 private data class Ok<T,E>(val value: T) : Result<T,E>
 private data class Err<T,E>(val errors: List<E>) : Result<T,E> {
