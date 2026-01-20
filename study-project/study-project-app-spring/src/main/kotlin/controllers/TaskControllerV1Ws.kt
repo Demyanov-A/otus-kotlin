@@ -25,7 +25,6 @@ class TaskControllerV1Ws(private val appSettings: MgrAppSettings) : WebSocketHan
     private val sessions = appSettings.corSettings.wsSessions
 
     override fun handle(session: WebSocketSession): Mono<Void> {
-
         val MgrSess = SpringWsSessionV1(session)
         sessions.add(MgrSess)
         val messageObj = flow {

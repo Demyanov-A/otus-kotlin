@@ -195,6 +195,8 @@ components:
       type: object
       description: Объект описывает свойства, одинаковые для create и update
       properties:
+        userId:
+          $ref: '#/components/schemas/UserId'
         title:
           type: string
           description: Заголовок задачи
@@ -217,7 +219,7 @@ components:
       description: Категория задачи
       enum:
         - hi
-        - middle
+        - medium
         - low
         - personal
 
@@ -313,6 +315,8 @@ components:
           $ref: '#/components/schemas/UserId'
         status:
           $ref: '#/components/schemas/Status'
+        category:
+          $ref: '#/components/schemas/Category'
         deadline:
           $ref: '#/components/schemas/Deadline'
         dtCreate:

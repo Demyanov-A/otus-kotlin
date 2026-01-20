@@ -26,9 +26,7 @@ import kotlin.reflect.KClass
 @Suppress("unused")
 @RestController
 @RequestMapping("v1/task")
-class TaskControllerV1Fine(
-    private val appSettings: MgrAppSettings
-) {
+class TaskControllerV1Fine(private val appSettings: MgrAppSettings) {
 
     @PostMapping("create")
     suspend fun create(@RequestBody request: TaskCreateRequest): TaskCreateResponse =
