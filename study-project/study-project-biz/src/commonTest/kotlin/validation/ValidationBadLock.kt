@@ -3,7 +3,14 @@ package validation
 import kotlinx.coroutines.test.runTest
 import ru.demyanovaf.kotlin.taskManager.biz.MgrTaskProcessor
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
-import ru.demyanovaf.kotlin.taskManager.common.models.*
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrWorkMode
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals

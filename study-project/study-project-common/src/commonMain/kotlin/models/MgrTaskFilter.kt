@@ -10,7 +10,7 @@ data class MgrTaskFilter(
     var category: MgrCategory = MgrCategory.NONE,
     var deadline: Instant = Instant.NONE,
     var dtCreate: Instant = Instant.NONE,
-){
+) {
     fun deepCopy(): MgrTaskFilter = copy()
 
     fun isEmpty() = this == NONE

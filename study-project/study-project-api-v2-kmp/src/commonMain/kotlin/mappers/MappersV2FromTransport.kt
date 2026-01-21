@@ -119,7 +119,10 @@ private fun TaskCreateObject.toInternal(): MgrTask = MgrTask(
     description = this.description ?: "",
     category = this.category.fromTransport(),
     deadline = try {
-        deadline?.let { Instant.parse(it) } ?: Instant.NONE} catch (_: Exception){Instant.NONE},
+        deadline?.let { Instant.parse(it) } ?: Instant.NONE
+    } catch (_: Exception) {
+        Instant.NONE
+    },
     status = MgrStatus.NEW,
     dtCreate = Clock.System.now()
 )
@@ -131,7 +134,10 @@ private fun TaskUpdateObject.toInternal(): MgrTask = MgrTask(
     category = this.category.fromTransport(),
     status = this.status.fromTransport(),
     deadline = try {
-        deadline?.let { Instant.parse(it) } ?: Instant.NONE} catch (_: Exception){Instant.NONE},
+        deadline?.let { Instant.parse(it) } ?: Instant.NONE
+    } catch (_: Exception) {
+        Instant.NONE
+    },
     lock = this.lock.toTaskLock(),
 )
 

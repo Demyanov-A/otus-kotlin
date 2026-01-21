@@ -25,7 +25,7 @@ ext {
 }
 
 tasks {
-    fun taskRegistration(taskName: String, taskGroup: String){
+    fun taskRegistration(taskName: String, taskGroup: String) {
         register(taskName) {
             group = taskGroup
             subprojects.forEach { proj ->
@@ -38,10 +38,10 @@ tasks {
     }
 
     //taskRegistration("build","build")
-    taskRegistration("clean","build")
-    taskRegistration("check","verification")
+    taskRegistration("clean", "build")
+    taskRegistration("check", "verification")
 
-    register("build" ) {
+    register("build") {
         group = "build"
     }
 }

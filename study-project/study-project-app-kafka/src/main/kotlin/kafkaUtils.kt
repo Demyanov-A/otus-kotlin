@@ -8,7 +8,7 @@ import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
 import java.util.*
 
-fun AppKafkaConfig.createKafkaConsumer() : KafkaConsumer<String, String> {
+fun AppKafkaConfig.createKafkaConsumer(): KafkaConsumer<String, String> {
     val props = Properties().apply {
         put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaHosts)
         put(ConsumerConfig.GROUP_ID_CONFIG, kafkaGroupId)

@@ -3,7 +3,7 @@ package ru.demyanovaf.kotlin.taskManager.app.spring.base
 import ru.demyanovaf.kotlin.taskManager.common.ws.IMgrWsSession
 import ru.demyanovaf.kotlin.taskManager.common.ws.IMgrWsSessionRepo
 
-class SpringWsSessionRepo: IMgrWsSessionRepo {
+class SpringWsSessionRepo : IMgrWsSessionRepo {
     private val sessions: MutableSet<IMgrWsSession> = mutableSetOf()
     override fun add(session: IMgrWsSession) {
         sessions.add(session)

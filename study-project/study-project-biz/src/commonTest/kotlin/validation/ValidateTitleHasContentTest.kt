@@ -2,9 +2,9 @@ package ru.demyanovaf.kotlin.taskManager.biz.validation
 
 import kotlinx.coroutines.test.runTest
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskFilter
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
 import ru.demyanovaf.kotlin.taskManager.cor.rootChain
 import kotlin.test.Test
 import kotlin.test.assertEquals

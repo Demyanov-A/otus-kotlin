@@ -17,7 +17,7 @@ class AppKafkaConfig(
         loggerProvider = TmLoggerProvider { tmLoggerLogback(it) }
     ),
     override val processor: MgrTaskProcessor = MgrTaskProcessor(corSettings),
-): IMgrAppSettings {
+) : IMgrAppSettings {
     companion object {
         const val KAFKA_HOST_VAR = "KAFKA_HOSTS"
         const val KAFKA_TOPIC_IN_V1_VAR = "KAFKA_TOPIC_IN_V1"

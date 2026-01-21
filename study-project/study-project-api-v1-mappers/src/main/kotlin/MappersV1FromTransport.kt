@@ -4,6 +4,8 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toInstant
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.Category
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.IRequest
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.Status
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskCreateObject
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskCreateRequest
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskDebug
@@ -17,17 +19,15 @@ import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskSearchFilter
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskSearchRequest
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskUpdateObject
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskUpdateRequest
-import ru.demyanovaf.kotlin.taskManager.api.v1.models.Status
-import ru.demyanovaf.kotlin.taskManager.api.v1.models.IRequest
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
 import ru.demyanovaf.kotlin.taskManager.common.NONE
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskFilter
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrUserId
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrWorkMode
 import ru.demyanovaf.kotlin.taskManager.common.stubs.MgrStubs
@@ -125,7 +125,11 @@ private fun TaskCreateObject.toInternal(): MgrTask = MgrTask(
     title = this.title ?: "",
     description = this.description ?: "",
     category = this.category.fromTransport(),
-    deadline = try { this.deadline?.toInstant() ?: Instant.NONE} catch (_: Exception){Instant.NONE},
+    deadline = try {
+        this.deadline?.toInstant() ?: Instant.NONE
+    } catch (_: Exception) {
+        Instant.NONE
+    },
     status = MgrStatus.NEW,
     dtCreate = Clock.System.now()
 )
@@ -137,7 +141,11 @@ private fun TaskUpdateObject.toInternal(): MgrTask = MgrTask(
     description = this.description ?: "",
     category = this.category.fromTransport(),
     status = this.status.fromTransport(),
-    deadline = try { this.deadline?.toInstant() ?: Instant.NONE} catch (_: Exception){Instant.NONE},
+    deadline = try {
+        this.deadline?.toInstant() ?: Instant.NONE
+    } catch (_: Exception) {
+        Instant.NONE
+    },
     lock = this.lock.toTaskLock(),
 )
 

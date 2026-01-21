@@ -67,6 +67,7 @@ fun MgrContext.toTransportSearch() = TaskSearchResponse(
     errors = errors.toTransportErrors(),
     tasks = tasksResponse.toTransportTask()
 )
+
 fun MgrContext.toTransportInit() = TaskInitResponse(
     result = state.toResult(),
     errors = errors.toTransportErrors(),

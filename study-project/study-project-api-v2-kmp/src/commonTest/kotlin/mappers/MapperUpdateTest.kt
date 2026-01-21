@@ -1,5 +1,6 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2.mappers
 
+import kotlinx.datetime.Clock
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDebug
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugMode
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugStubs
@@ -20,6 +21,7 @@ import kotlin.test.assertEquals
 class MapperUpdateTest {
     @Test
     fun fromTransport() {
+        val dtCreate = Clock.System.now()
         val req = TaskUpdateRequest(
             debug = TaskDebug(
                 mode = TaskRequestDebugMode.STUB,
@@ -28,12 +30,14 @@ class MapperUpdateTest {
             task = MgrTaskStub.get().toTransportUpdateTask(),
         )
         val expected = MgrTaskStub.prepareResult {
-            userId = MgrUserId.NONE
-            permissionsClient.clear()
+            this.userId = MgrUserId.NONE
+            this.dtCreate = dtCreate
+            this.permissionsClient.clear()
         }
 
         val context = MgrContext()
         context.fromTransport(req)
+        context.taskRequest.dtCreate = dtCreate
 
         assertEquals(MgrStubs.SUCCESS, context.stubCase)
         assertEquals(MgrWorkMode.STUB, context.workMode)
@@ -42,10 +46,13 @@ class MapperUpdateTest {
 
     @Test
     fun toTransport() {
+        val dtCreate = Clock.System.now()
         val context = MgrContext(
             requestId = MgrRequestId("1234"),
             command = MgrCommand.UPDATE,
-            taskResponse = MgrTaskStub.get(),
+            taskResponse = MgrTaskStub.prepareResult {
+                this.dtCreate = dtCreate
+            },
             errors = mutableListOf(
                 MgrError(
                     code = "err",
@@ -58,8 +65,10 @@ class MapperUpdateTest {
         )
 
         val req = context.toTransportTask() as TaskUpdateResponse
+        val expected = MgrTaskStub.get()
+        expected.dtCreate = dtCreate
 
-        assertEquals(MgrTaskStub.get().toTransportTask(), req.task)
+        assertEquals(req.task, expected.toTransportTask())
         assertEquals(1, req.errors?.size)
         assertEquals("err", req.errors?.firstOrNull()?.code)
         assertEquals("request", req.errors?.firstOrNull()?.group)

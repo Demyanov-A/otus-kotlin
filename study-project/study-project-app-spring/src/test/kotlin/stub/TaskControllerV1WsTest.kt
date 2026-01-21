@@ -4,16 +4,30 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
 import ru.demyanovaf.kotlin.taskManager.api.v1.apiV1RequestSerialize
 import ru.demyanovaf.kotlin.taskManager.api.v1.apiV1ResponseDeserialize
-import ru.demyanovaf.kotlin.taskManager.api.v1.models.*
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.Category
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.IRequest
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.IResponse
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.ResponseResult
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.Status
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskCreateObject
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskCreateRequest
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskCreateResponse
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskDebug
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskInitResponse
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskReadObject
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskReadRequest
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskReadResponse
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskRequestDebugMode
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskRequestDebugStubs
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskUpdateObject
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskUpdateRequest
+import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskUpdateResponse
 import kotlin.test.Test
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Suppress("unused")
-class TaskControllerV1WsTest: TaskControllerBaseWsTest<IRequest, IResponse>("v1") {
+class TaskControllerV1WsTest : TaskControllerBaseWsTest<IRequest, IResponse>("v1") {
 
     @LocalServerPort
     override var port: Int = 0
@@ -22,15 +36,17 @@ class TaskControllerV1WsTest: TaskControllerBaseWsTest<IRequest, IResponse>("v1"
     override fun serializeRq(request: IRequest): String = apiV1RequestSerialize(request)
 
     @Test
-    fun wsCreate(): Unit = testWsApp(TaskCreateRequest(
-        debug = TaskDebug(TaskRequestDebugMode.STUB, TaskRequestDebugStubs.SUCCESS),
-        task = TaskCreateObject(
-            title = "test1",
-            description = "desc",
-            status = Status.NEW,
-            category = Category.LOW,
+    fun wsCreate(): Unit = testWsApp(
+        TaskCreateRequest(
+            debug = TaskDebug(TaskRequestDebugMode.STUB, TaskRequestDebugStubs.SUCCESS),
+            task = TaskCreateObject(
+                title = "test1",
+                description = "desc",
+                status = Status.NEW,
+                category = Category.LOW,
+            )
         )
-    )) { pl ->
+    ) { pl ->
         val mesInit = pl[0]
         val mesCreate = pl[1]
         assert(mesInit is TaskInitResponse)
@@ -40,12 +56,14 @@ class TaskControllerV1WsTest: TaskControllerBaseWsTest<IRequest, IResponse>("v1"
     }
 
     @Test
-    fun wsRead(): Unit = testWsApp(TaskReadRequest(
-        debug = TaskDebug(TaskRequestDebugMode.STUB, TaskRequestDebugStubs.SUCCESS),
-        task = TaskReadObject(
-            id = "666"
+    fun wsRead(): Unit = testWsApp(
+        TaskReadRequest(
+            debug = TaskDebug(TaskRequestDebugMode.STUB, TaskRequestDebugStubs.SUCCESS),
+            task = TaskReadObject(
+                id = "666"
+            )
         )
-    )) { pl ->
+    ) { pl ->
         val mesInit = pl[0]
         val mesRead = pl[1]
         assert(mesInit is TaskInitResponse)
@@ -55,17 +73,19 @@ class TaskControllerV1WsTest: TaskControllerBaseWsTest<IRequest, IResponse>("v1"
     }
 
     @Test
-    fun wsUpdate(): Unit = testWsApp(TaskUpdateRequest(
-        debug = TaskDebug(TaskRequestDebugMode.STUB, TaskRequestDebugStubs.SUCCESS),
-        task = TaskUpdateObject(
-            id = "666",
-            title = "xx",
-            description = "yy",
-            status = Status.NEW,
-            category = Category.LOW,
-            lock = "123",
+    fun wsUpdate(): Unit = testWsApp(
+        TaskUpdateRequest(
+            debug = TaskDebug(TaskRequestDebugMode.STUB, TaskRequestDebugStubs.SUCCESS),
+            task = TaskUpdateObject(
+                id = "666",
+                title = "xx",
+                description = "yy",
+                status = Status.NEW,
+                category = Category.LOW,
+                lock = "123",
+            )
         )
-    )) { pl ->
+    ) { pl ->
         val mesInit = pl[0]
         val mesUpdate = pl[1]
         assert(mesInit is TaskInitResponse)

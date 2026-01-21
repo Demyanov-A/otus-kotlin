@@ -32,6 +32,7 @@ class TaskConfig {
         corSettings = corSettings,
         processor = processor,
     )
+
     @Bean
     fun wsRepo(): SpringWsSessionRepo = SpringWsSessionRepo()
 

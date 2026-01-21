@@ -7,7 +7,6 @@ import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping
 import org.springframework.web.reactive.socket.WebSocketHandler
 import ru.demyanovaf.kotlin.taskManager.app.spring.controllers.TaskControllerV1Ws
 import ru.demyanovaf.kotlin.taskManager.app.spring.controllers.TaskControllerV2Ws
-import kotlin.to
 
 
 @Suppress("unused")

@@ -9,7 +9,7 @@ fun ICorChainDsl<MgrContext>.finishTaskValidation(title: String) = worker {
     this.title = title
     on { state == MgrState.RUNNING }
     handle {
-            taskValidated = taskValidating
+        taskValidated = taskValidating
     }
 }
 

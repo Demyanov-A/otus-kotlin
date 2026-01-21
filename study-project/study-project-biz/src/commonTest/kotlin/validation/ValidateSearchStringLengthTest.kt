@@ -2,8 +2,8 @@ package ru.demyanovaf.kotlin.taskManager.biz.validation
 
 import kotlinx.coroutines.test.runTest
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskFilter
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskFilter
 import ru.demyanovaf.kotlin.taskManager.cor.rootChain
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -44,7 +44,8 @@ class ValidateSearchStringLengthTest {
 
     @Test
     fun longString() = runTest {
-        val ctx = MgrContext(state = MgrState.RUNNING, taskFilterValidating = MgrTaskFilter(searchString = "12".repeat(51)))
+        val ctx =
+            MgrContext(state = MgrState.RUNNING, taskFilterValidating = MgrTaskFilter(searchString = "12".repeat(51)))
         chain.exec(ctx)
         assertEquals(MgrState.FAILING, ctx.state)
         assertEquals(1, ctx.errors.size)
