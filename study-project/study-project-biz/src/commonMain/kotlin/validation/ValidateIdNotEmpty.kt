@@ -1,10 +1,10 @@
 package ru.demyanovaf.kotlin.taskManager.biz.validation
 
+import ru.demyanovaf.kotlin.taskManager.common.MgrContext
+import ru.demyanovaf.kotlin.taskManager.common.helpers.errorValidation
+import ru.demyanovaf.kotlin.taskManager.common.helpers.fail
 import ru.demyanovaf.kotlin.taskManager.cor.ICorChainDsl
 import ru.demyanovaf.kotlin.taskManager.cor.worker
-import ru.demyanovaf.kotlin.taskManager.common.helpers.errorValidation
-import ru.demyanovaf.kotlin.taskManager.common.MgrContext
-import ru.demyanovaf.kotlin.taskManager.common.helpers.fail
 
 fun ICorChainDsl<MgrContext>.validateIdNotEmpty(title: String) = worker {
     this.title = title

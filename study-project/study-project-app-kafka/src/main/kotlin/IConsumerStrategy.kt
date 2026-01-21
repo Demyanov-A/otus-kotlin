@@ -10,10 +10,12 @@ interface IConsumerStrategy {
      * Топики, для которых применяется стратегия
      */
     fun topics(config: AppKafkaConfig): InputOutputTopics
+
     /**
      * Сериализатор для версии API
      */
     fun serialize(source: MgrContext): String
+
     /**
      * Десериализатор для версии API
      */

@@ -1,7 +1,9 @@
 package ru.demyanovaf.kotlin.taskManager.biz.stubs
 
+import kotlinx.datetime.Clock
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
 import ru.demyanovaf.kotlin.taskManager.common.MgrCorSettings
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
 import ru.demyanovaf.kotlin.taskManager.common.stubs.MgrStubs
@@ -20,7 +22,11 @@ fun ICorChainDsl<MgrContext>.stubSearchSuccess(title: String, corSettings: MgrCo
     handle {
         logger.doWithLogging(id = this.requestId.asString(), LogLevel.DEBUG) {
             state = MgrState.FINISHING
-            tasksResponse.addAll(MgrTaskStub.prepareSearchList(taskFilterRequest.searchString, MgrStatus.NEW))
+            tasksResponse.addAll(
+                MgrTaskStub.prepareSearchList(
+                    taskFilterRequest.searchString, MgrStatus.NEW, MgrCategory.LOW, Clock.System.now()
+                )
+            )
         }
     }
 }

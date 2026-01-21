@@ -1,35 +1,37 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2.mappers
 
-import ru.demyanovaf.kotlin.taskManager.api.v2.models.*
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateRequest
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
-import ru.demyanovaf.kotlin.taskManager.common.models.*
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrError
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
 import ru.demyanovaf.kotlin.taskManager.common.stubs.MgrStubs
 
 // Демонстрация форматной валидации в маппере
-private sealed interface Result<T,E>
-private data class Ok<T,E>(val value: T) : Result<T,E>
-private data class Err<T,E>(val errors: List<E>) : Result<T,E> {
+private sealed interface Result<T, E>
+private data class Ok<T, E>(val value: T) : Result<T, E>
+private data class Err<T, E>(val errors: List<E>) : Result<T, E> {
     constructor(error: E) : this(listOf(error))
 }
 
-private fun <T,E> Result<T,E>.getOrExec(default: T, block: (Err<T,E>) -> Unit = {}): T = when (this) {
-    is Ok<T,E> -> this.value
-    is Err<T,E> -> {
+private fun <T, E> Result<T, E>.getOrExec(default: T, block: (Err<T, E>) -> Unit = {}): T = when (this) {
+    is Ok<T, E> -> this.value
+    is Err<T, E> -> {
         block(this)
         default
     }
 }
 
 @Suppress("unused")
-private fun <T,E> Result<T,E>.getOrNull(block: (Err<T,E>) -> Unit = {}): T? = when (this) {
-    is Ok<T,E> -> this.value
-    is Err<T,E> -> {
+private fun <T, E> Result<T, E>.getOrNull(block: (Err<T, E>) -> Unit = {}): T? = when (this) {
+    is Ok<T, E> -> this.value
+    is Err<T, E> -> {
         block(this)
         null
     }
 }
 
-private fun String?.transportToStubCaseValidated(): Result<MgrStubs,MgrError> = when (this) {
+private fun String?.transportToStubCaseValidated(): Result<MgrStubs, MgrError> = when (this) {
     "success" -> Ok(MgrStubs.SUCCESS)
     "notFound" -> Ok(MgrStubs.NOT_FOUND)
     "badId" -> Ok(MgrStubs.BAD_ID)
@@ -59,7 +61,7 @@ fun MgrContext.fromTransportValidated(request: TaskCreateRequest) {
         ?.stub
         ?.value
         .transportToStubCaseValidated()
-        .getOrExec(MgrStubs.NONE) { err: Err<MgrStubs,MgrError> ->
+        .getOrExec(MgrStubs.NONE) { err: Err<MgrStubs, MgrError> ->
             errors.addAll(err.errors)
             state = MgrState.FAILING
         }

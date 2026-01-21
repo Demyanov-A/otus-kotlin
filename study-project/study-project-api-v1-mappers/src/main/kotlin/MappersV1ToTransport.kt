@@ -34,11 +34,12 @@ fun MgrContext.toTransportTask(): IResponse = when (val cmd = command) {
     MgrCommand.DELETE -> toTransportDelete()
     MgrCommand.SEARCH -> toTransportSearch()
     MgrCommand.INIT -> toTransportInit()
-    MgrCommand.FINISH-> object: IResponse {
+    MgrCommand.FINISH -> object : IResponse {
         override val responseType: String? = null
         override val result: ResponseResult? = null
         override val errors: List<Error>? = null
     }
+
     MgrCommand.NONE -> throw UnknownMgrCommand(cmd)
 }
 

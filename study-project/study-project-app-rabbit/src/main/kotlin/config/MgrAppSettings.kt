@@ -10,4 +10,4 @@ data class MgrAppSettings(
     override val rabbit: RabbitConfig = RabbitConfig(),
     override val controllersConfigV1: RabbitExchangeConfiguration = RabbitExchangeConfiguration.NONE,
     override val controllersConfigV2: RabbitExchangeConfiguration = RabbitExchangeConfiguration.NONE,
-): IMgrAppSettings, IMgrAppRabbitSettings
+) : IMgrAppSettings, IMgrAppRabbitSettings

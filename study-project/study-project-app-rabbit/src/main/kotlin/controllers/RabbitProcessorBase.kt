@@ -100,7 +100,7 @@ abstract class RabbitProcessorBase @OptIn(ExperimentalCoroutinesApi::class) cons
                 // Предотвращаем завал при прерывании delay
                 runCatching {
                     delay(100)
-                }.recover {  }
+                }.recover { }
             }
             logger.debug("Channel for [${exchangeConfig.consumerTag}] was closed.")
         }
