@@ -19,25 +19,32 @@ subprojects {
 }
 
 tasks {
-//    register("clean") {
-//        group = "build"
-//        gradle.includedBuilds.forEach {
-//            dependsOn(it.task(":clean"))
-//        }
-//    }
-//    val buildInfra: Task by creating {
-//        dependsOn(gradle.includedBuild("otus-kotlin-dcompose").task(":buildInfra"))
-//    }
-//
-//    val e2eTests: Task by creating {
-//        dependsOn(gradle.includedBuild("study-project-tests").task(":e2eTests"))
-////        mustRunAfter(buildImages)
-//    }
+    register("clean") {
+        group = "build"
+        gradle.includedBuilds.forEach {
+            dependsOn(it.task(":clean"))
+        }
+    }
+    val buildMigrations by registering { ->
+        dependsOn(
+            gradle.includedBuild("otus-kotlin-dcompose").task(":buildInfra")
+        )
+    }
+
+    val buildImages by registering { ->
+        dependsOn(buildMigrations)
+        dependsOn(gradle.includedBuild("study-project").task(":buildImages"))
+    }
+    val e2eTests by registering { ->
+        dependsOn(buildImages)
+        dependsOn(gradle.includedBuild("study-project-tests").task(":e2eTests"))
+        mustRunAfter(buildImages)
+    }
 
     register("check") {
         group = "verification"
         dependsOn(gradle.includedBuild("study-project").task(":check"))
-        //dependsOn(e2eTests)
+        dependsOn(e2eTests)
     }
 }
 

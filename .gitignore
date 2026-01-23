@@ -8,4 +8,5 @@
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/**/build/
 
+**/*.log
 **/*.hprof

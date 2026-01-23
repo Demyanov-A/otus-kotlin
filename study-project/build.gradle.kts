@@ -38,10 +38,13 @@ tasks {
     }
 
     //taskRegistration("build","build")
-    taskRegistration("clean", "build")
+    //taskRegistration("clean", "build")
     taskRegistration("check", "verification")
 
     register("build") {
         group = "build"
+    }
+    register("buildImages") {
+        dependsOn(project("study-project-app-spring").tasks.getByName("bootBuildImage"))
     }
 }

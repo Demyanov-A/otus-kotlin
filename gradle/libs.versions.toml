@@ -1,5 +1,6 @@
 [versions]
 kotlin = "2.1.0"
+mgr = "0.0.1"
 
 kotlinx-datetime = "0.6.2"
 kotlinx-serialization = "1.6.3"
@@ -22,7 +23,7 @@ spring-boot = "3.4.0"
 muschko = "9.4.0"
 
 #Testing
-testcontainers = "1.19.7"
+testcontainers = "1.21.1"
 
 # BASE
 jvm-compiler = "17"
@@ -40,6 +41,7 @@ coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ve
 coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version.ref = "coroutines" }
 coroutines-reactive = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactive", version.ref = "coroutines" }
 cor = { module = "ru.demyanovaf.kotlin.taskManager.libs:study-project-lib-cor" }
+uuid = "com.benasher44:uuid:0.8.4"
 
 jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
 jackson-datatype = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
@@ -76,6 +78,12 @@ mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version = "5.2.
 testcontainers-core = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
 testcontainers-rabbitmq = { module = "org.testcontainers:rabbitmq", version.ref = "testcontainers" }
 
+mgr-logs-common = { module = "ru.demyanovaf.kotlin.taskManager.libs:study-project-lib-logging-common", version.ref = "mgr" }
+mgr-logs-kermit = { module = "ru.demyanovaf.kotlin.taskManager.libs:study-project-lib-logging-kermit", version.ref = "mgr" }
+mgr-logs-logback = { module = "ru.demyanovaf.kotlin.taskManager.libs:study-project-lib-logging-logback", version.ref = "mgr" }
+mgr-logs-socket = { module = "ru.demyanovaf.kotlin.taskManager.libs:study-project-lib-logging-socket", version.ref = "mgr" }
+mgr-cor = { module = "ru.demyanovaf.kotlin.taskManager.libs:study-project-lib-cor", version.ref = "mgr" }
+
 [bundles]
 kotest = ["kotest-junit5", "kotest-core", "kotest-property"]
 
@@ -95,3 +103,4 @@ spring-kotlin = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotl
 # Docker
 muschko-remote = { id = "com.bmuschko.docker-remote-api", version.ref = "muschko" }
 muschko-java = { id = "com.bmuschko.docker-java-application", version.ref = "muschko" }
+palantir-docker = "com.palantir.docker:0.36.0"
