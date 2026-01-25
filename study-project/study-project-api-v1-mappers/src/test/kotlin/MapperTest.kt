@@ -1,4 +1,3 @@
-import kotlinx.datetime.Clock
 import org.junit.Test
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskCreateRequest
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.TaskCreateResponse
@@ -24,7 +23,6 @@ import kotlin.test.assertEquals
 class MapperTest {
     @Test
     fun fromTransport() {
-        val dtCreate = Clock.System.now()
         val req = TaskCreateRequest(
             debug = TaskDebug(
                 mode = TaskRequestDebugMode.STUB,
@@ -36,13 +34,11 @@ class MapperTest {
             this.id = MgrTaskId.NONE
             this.userId = MgrUserId.NONE
             this.lock = MgrTaskLock.NONE
-            this.dtCreate = dtCreate
             this.permissionsClient.clear()
         }
 
         val context = MgrContext()
         context.fromTransport(req)
-        context.taskRequest.dtCreate = dtCreate
 
         assertEquals(MgrStubs.SUCCESS, context.stubCase)
         assertEquals(MgrWorkMode.STUB, context.workMode)
@@ -51,7 +47,6 @@ class MapperTest {
 
     @Test
     fun toTransport() {
-        val dtCreate = Clock.System.now()
         val context = MgrContext(
             requestId = MgrRequestId("1234"),
             command = MgrCommand.CREATE,
@@ -69,7 +64,6 @@ class MapperTest {
 
         val req = context.toTransportTask() as TaskCreateResponse
         val expected = MgrTaskStub.get()
-        expected.dtCreate = dtCreate
 
         assertEquals(req.task, expected.toTransportTask())
         assertEquals(1, req.errors?.size)

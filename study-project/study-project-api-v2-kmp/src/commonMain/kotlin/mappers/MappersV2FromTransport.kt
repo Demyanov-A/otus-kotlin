@@ -1,6 +1,5 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2.mappers
 
-import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Category
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.IRequest
@@ -27,6 +26,7 @@ import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskFilter
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrUserId
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrWorkMode
 import ru.demyanovaf.kotlin.taskManager.common.stubs.MgrStubs
 
@@ -40,6 +40,8 @@ fun MgrContext.fromTransport(request: IRequest) = when (request) {
 
 private fun String?.toTaskId() = this?.let { MgrTaskId(it) } ?: MgrTaskId.NONE
 private fun String?.toTaskLock() = this?.let { MgrTaskLock(it) } ?: MgrTaskLock.NONE
+private fun String?.toMgrUserId() = this?.let { MgrUserId(it) } ?: MgrUserId.NONE
+
 private fun TaskReadObject?.toInternal() = if (this != null) {
     MgrTask(id = id.toTaskId())
 } else {
@@ -111,11 +113,24 @@ fun MgrContext.fromTransport(request: TaskSearchRequest) {
 }
 
 private fun TaskSearchFilter?.toInternal(): MgrTaskFilter = MgrTaskFilter(
-    searchString = this?.searchString ?: ""
+    searchString = this?.searchString ?: "",
+    status = this?.status.fromTransport(),
+    category = this?.category.fromTransport(),
+    deadline = try {
+        this?.deadline?.let { Instant.parse(it) } ?: Instant.NONE
+    } catch (_: Exception) {
+        Instant.NONE
+    },
+    dtCreate = try {
+        this?.deadline?.let { Instant.parse(it) } ?: Instant.NONE
+    } catch (_: Exception) {
+        Instant.NONE
+    },
 )
 
 private fun TaskCreateObject.toInternal(): MgrTask = MgrTask(
     title = this.title ?: "",
+    userId = userId.toMgrUserId(),
     description = this.description ?: "",
     category = this.category.fromTransport(),
     deadline = try {
@@ -124,11 +139,16 @@ private fun TaskCreateObject.toInternal(): MgrTask = MgrTask(
         Instant.NONE
     },
     status = MgrStatus.NEW,
-    dtCreate = Clock.System.now()
+    dtCreate = try {
+        this.deadline?.let { Instant.parse(it) } ?: Instant.NONE
+    } catch (_: Exception) {
+        Instant.NONE
+    },
 )
 
 private fun TaskUpdateObject.toInternal(): MgrTask = MgrTask(
     id = this.id.toTaskId(),
+    userId = userId.toMgrUserId(),
     title = this.title ?: "",
     description = this.description ?: "",
     category = this.category.fromTransport(),

@@ -36,7 +36,7 @@ class ControllerV2Test {
         override val processor: MgrTaskProcessor = MgrTaskProcessor(corSettings)
     }
 
-    private suspend fun createAdSpring(request: TaskCreateRequest): TaskCreateResponse =
+    private suspend fun createTaskSpring(request: TaskCreateRequest): TaskCreateResponse =
         appSettings.controllerHelper(
             { fromTransport(request) },
             { toTransportTask() as TaskCreateResponse },
@@ -54,7 +54,7 @@ class ControllerV2Test {
         }
     }
 
-    private suspend fun TestApplicationCall.createAdKtor(appSettings: IMgrAppSettings) {
+    private suspend fun TestApplicationCall.createTaskKtor(appSettings: IMgrAppSettings) {
         val resp = appSettings.controllerHelper(
             { fromTransport(receive<TaskCreateRequest>()) },
             { toTransportTask() },
@@ -66,13 +66,13 @@ class ControllerV2Test {
 
     @Test
     fun springHelperTest() = runTest {
-        val res = createAdSpring(request)
+        val res = createTaskSpring(request)
         assertEquals(ResponseResult.SUCCESS, res.result)
     }
 
     @Test
     fun ktorHelperTest() = runTest {
-        val testApp = TestApplicationCall(request).apply { createAdKtor(appSettings) }
+        val testApp = TestApplicationCall(request).apply { createTaskKtor(appSettings) }
         val res = testApp.res as TaskCreateResponse
         assertEquals(ResponseResult.SUCCESS, res.result)
     }

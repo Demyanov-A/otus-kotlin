@@ -35,6 +35,7 @@ tasks {
         dependsOn(buildMigrations)
         dependsOn(gradle.includedBuild("study-project").task(":buildImages"))
     }
+
     val e2eTests by registering { ->
         dependsOn(buildImages)
         dependsOn(gradle.includedBuild("study-project-tests").task(":e2eTests"))

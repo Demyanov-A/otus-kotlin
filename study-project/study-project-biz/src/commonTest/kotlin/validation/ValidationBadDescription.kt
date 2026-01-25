@@ -3,38 +3,25 @@ package ru.demyanovaf.kotlin.taskManager.biz.validation
 import kotlinx.coroutines.test.runTest
 import ru.demyanovaf.kotlin.taskManager.biz.MgrTaskProcessor
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrWorkMode
 import ru.demyanovaf.kotlin.taskManager.stubs.MgrTaskStub
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
-private val stub = MgrTaskStub.get()
-
 fun validationDescriptionCorrect(command: MgrCommand, processor: MgrTaskProcessor) = runTest {
     val ctx = MgrContext(
         command = command,
         state = MgrState.NONE,
         workMode = MgrWorkMode.TEST,
-        taskRequest = MgrTask(
-            id = stub.id,
-            title = "abc",
-            description = "abc",
-            status = MgrStatus.NEW,
-            category = MgrCategory.LOW,
-            lock = MgrTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = MgrTaskStub.get(),
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
     assertNotEquals(MgrState.FAILING, ctx.state)
-    assertEquals("abc", ctx.taskValidated.description)
+    assertContains(ctx.taskValidated.description, "задач")
 }
 
 fun validationDescriptionTrim(command: MgrCommand, processor: MgrTaskProcessor) = runTest {
@@ -42,14 +29,9 @@ fun validationDescriptionTrim(command: MgrCommand, processor: MgrTaskProcessor) 
         command = command,
         state = MgrState.NONE,
         workMode = MgrWorkMode.TEST,
-        taskRequest = MgrTask(
-            id = stub.id,
-            title = "abc",
-            description = " \n\tabc \n\t",
-            status = MgrStatus.NEW,
-            category = MgrCategory.LOW,
-            lock = MgrTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = MgrTaskStub.prepareResult {
+            description = " \n\tabc \n\t"
+        },
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -62,14 +44,9 @@ fun validationDescriptionEmpty(command: MgrCommand, processor: MgrTaskProcessor)
         command = command,
         state = MgrState.NONE,
         workMode = MgrWorkMode.TEST,
-        taskRequest = MgrTask(
-            id = stub.id,
-            title = "abc",
-            description = "",
-            status = MgrStatus.NEW,
-            category = MgrCategory.LOW,
-            lock = MgrTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest =  MgrTaskStub.prepareResult {
+            description = ""
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)
@@ -84,14 +61,9 @@ fun validationDescriptionSymbols(command: MgrCommand, processor: MgrTaskProcesso
         command = command,
         state = MgrState.NONE,
         workMode = MgrWorkMode.TEST,
-        taskRequest = MgrTask(
-            id = stub.id,
-            title = "abc",
-            description = "!@#$%^&*(),.{}",
-            status = MgrStatus.NEW,
-            category = MgrCategory.LOW,
-            lock = MgrTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = MgrTaskStub.prepareResult {
+            description = "!@#$%^&*(),.{}"
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)

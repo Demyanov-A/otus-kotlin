@@ -8,6 +8,7 @@ import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskFilter
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrWorkMode
+import ru.demyanovaf.kotlin.taskManager.common.repo.IRepoTask
 import ru.demyanovaf.kotlin.taskManager.common.stubs.MgrStubs
 import ru.demyanovaf.kotlin.taskManager.common.ws.IMgrWsSession
 
@@ -31,6 +32,12 @@ data class MgrContext(
 
     var taskValidated: MgrTask = MgrTask(),
     var taskFilterValidated: MgrTaskFilter = MgrTaskFilter(),
+
+    var taskRepo: IRepoTask = IRepoTask.NONE,
+    var taskRepoRead: MgrTask = MgrTask(), // То, что прочитали из репозитория
+    var taskRepoPrepare: MgrTask = MgrTask(), // То, что готовим для сохранения в БД
+    var taskRepoDone: MgrTask = MgrTask(),  // Результат, полученный из БД
+    var tasksRepoDone: MutableList<MgrTask> = mutableListOf(),
 
     var taskResponse: MgrTask = MgrTask(),
     var tasksResponse: MutableList<MgrTask> = mutableListOf(),

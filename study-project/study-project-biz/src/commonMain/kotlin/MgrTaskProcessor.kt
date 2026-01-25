@@ -2,7 +2,16 @@ package ru.demyanovaf.kotlin.taskManager.biz
 
 import ru.demyanovaf.kotlin.taskManager.biz.general.initStatus
 import ru.demyanovaf.kotlin.taskManager.biz.general.operation
-import ru.demyanovaf.kotlin.taskManager.biz.general.stubs
+import ru.demyanovaf.kotlin.taskManager.biz.repo.initRepo
+import ru.demyanovaf.kotlin.taskManager.biz.repo.prepareResult
+import ru.demyanovaf.kotlin.taskManager.biz.repo.repoCreate
+import ru.demyanovaf.kotlin.taskManager.biz.repo.repoDelete
+import ru.demyanovaf.kotlin.taskManager.biz.repo.repoPrepareCreate
+import ru.demyanovaf.kotlin.taskManager.biz.repo.repoPrepareDelete
+import ru.demyanovaf.kotlin.taskManager.biz.repo.repoPrepareUpdate
+import ru.demyanovaf.kotlin.taskManager.biz.repo.repoRead
+import ru.demyanovaf.kotlin.taskManager.biz.repo.repoSearch
+import ru.demyanovaf.kotlin.taskManager.biz.repo.repoUpdate
 import ru.demyanovaf.kotlin.taskManager.biz.stubs.stubCreateSuccess
 import ru.demyanovaf.kotlin.taskManager.biz.stubs.stubDbError
 import ru.demyanovaf.kotlin.taskManager.biz.stubs.stubDeleteSuccess
@@ -13,6 +22,7 @@ import ru.demyanovaf.kotlin.taskManager.biz.stubs.stubUpdateSuccess
 import ru.demyanovaf.kotlin.taskManager.biz.stubs.stubValidationBadDescription
 import ru.demyanovaf.kotlin.taskManager.biz.stubs.stubValidationBadId
 import ru.demyanovaf.kotlin.taskManager.biz.stubs.stubValidationBadTitle
+import ru.demyanovaf.kotlin.taskManager.biz.stubs.stubs
 import ru.demyanovaf.kotlin.taskManager.biz.validation.finishTaskFilterValidation
 import ru.demyanovaf.kotlin.taskManager.biz.validation.finishTaskValidation
 import ru.demyanovaf.kotlin.taskManager.biz.validation.validateDescriptionHasContent
@@ -28,8 +38,10 @@ import ru.demyanovaf.kotlin.taskManager.biz.validation.validation
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
 import ru.demyanovaf.kotlin.taskManager.common.MgrCorSettings
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
+import ru.demyanovaf.kotlin.taskManager.cor.chain
 import ru.demyanovaf.kotlin.taskManager.cor.rootChain
 import ru.demyanovaf.kotlin.taskManager.cor.worker
 
@@ -40,6 +52,7 @@ class MgrTaskProcessor(
 
     private val businessChain = rootChain<MgrContext> {
         initStatus("Инициализация статуса")
+        initRepo("Инициализация репозитория")
 
         operation("Создание задачи", MgrCommand.CREATE) {
             stubs("Обработка стабов") {
@@ -61,6 +74,12 @@ class MgrTaskProcessor(
 
                 finishTaskValidation("Завершение проверок")
             }
+            chain {
+                title = "Логика сохранения"
+                repoPrepareCreate("Подготовка объекта для сохранения")
+                repoCreate("Создание задачи в БД")
+            }
+            prepareResult("Подготовка ответа")
         }
         operation("Получить задачу", MgrCommand.READ) {
             stubs("Обработка стабов") {
@@ -77,6 +96,16 @@ class MgrTaskProcessor(
 
                 finishTaskValidation("Успешное завершение процедуры валидации")
             }
+            chain {
+                title = "Логика чтения"
+                repoRead("Чтение задачи из БД")
+                worker {
+                    title = "Подготовка ответа для Read"
+                    on { state == MgrState.RUNNING }
+                    handle { taskRepoDone = taskRepoRead }
+                }
+            }
+            prepareResult("Подготовка ответа")
         }
         operation("Изменить задачу", MgrCommand.UPDATE) {
             stubs("Обработка стабов") {
@@ -104,6 +133,13 @@ class MgrTaskProcessor(
 
                 finishTaskValidation("Успешное завершение процедуры валидации")
             }
+            chain {
+                title = "Логика сохранения"
+                repoRead("Чтение задачи из БД")
+                repoPrepareUpdate("Подготовка объекта для обновления")
+                repoUpdate("Обновление задачи в БД")
+            }
+            prepareResult("Подготовка ответа")
         }
         operation("Удалить задачу", MgrCommand.DELETE) {
             stubs("Обработка стабов") {
@@ -124,6 +160,13 @@ class MgrTaskProcessor(
                 validateLockProperFormat("Проверка формата lock")
                 finishTaskValidation("Успешное завершение процедуры валидации")
             }
+            chain {
+                title = "Логика удаления"
+                repoRead("Чтение задачи из БД")
+                repoPrepareDelete("Подготовка объекта для удаления")
+                repoDelete("Удаление задачи из БД")
+            }
+            prepareResult("Подготовка ответа")
         }
         operation("Поиск задач", MgrCommand.SEARCH) {
             stubs("Обработка стабов") {
@@ -138,6 +181,8 @@ class MgrTaskProcessor(
 
                 finishTaskFilterValidation("Успешное завершение процедуры валидации")
             }
+            repoSearch("Поиск задачи в БД по фильтру")
+            prepareResult("Подготовка ответа")
         }
     }.build()
 }

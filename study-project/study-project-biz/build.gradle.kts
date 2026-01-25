@@ -21,6 +21,9 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
 
                 api(libs.coroutines.test)
+                implementation(project(":study-project-repo-tests"))
+                implementation(project(":study-project-repo-inmemory"))
+
             }
         }
         jvmMain {

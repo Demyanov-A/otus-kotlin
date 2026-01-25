@@ -38,3 +38,8 @@ include(":study-project-app-spring")
 include(":study-project-common")
 include(":study-project-stubs")
 include(":study-project-biz")
+
+include(":study-project-repo-common")
+include(":study-project-repo-inmemory")
+include(":study-project-repo-stubs")
+include(":study-project-repo-tests")

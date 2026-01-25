@@ -1,6 +1,7 @@
 package ru.demyanovaf.kotlin.taskManager.stubs
 
-import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import ru.demyanovaf.kotlin.taskManager.common.NONE
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
@@ -18,7 +19,8 @@ object MgrStubTasks {
             userId = MgrUserId("user-1"),
             category = MgrCategory.LOW,
             status = MgrStatus.NEW,
-            dtCreate = Clock.System.now(),
+            deadline = Instant.NONE,
+            dtCreate = Instant.NONE,
             lock = MgrTaskLock("123"),
             permissionsClient = mutableSetOf(
                 MgrTaskPermissionClient.READ,
