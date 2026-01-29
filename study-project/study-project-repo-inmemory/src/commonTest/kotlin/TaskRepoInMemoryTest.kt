@@ -36,7 +36,7 @@ class TaskRepoInMemorySearchTest : RepoTaskSearchTest() {
 
 class TaskRepoInMemoryUpdateTest : RepoTaskUpdateTest() {
     override val repo = TaskRepoInitialized(
-        TaskRepoInMemory(),
+        TaskRepoInMemory(randomUuid = { lockNew.asString() }),
         initObjects = initObjects,
     )
 }

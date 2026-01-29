@@ -10,6 +10,7 @@ import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrUserId
 import ru.demyanovaf.kotlin.taskManager.common.repo.DbTaskFilterRequest
 import ru.demyanovaf.kotlin.taskManager.common.repo.DbTaskIdRequest
@@ -20,8 +21,12 @@ import ru.demyanovaf.kotlin.taskManager.common.repo.IDbTaskResponse
 import ru.demyanovaf.kotlin.taskManager.common.repo.IDbTasksResponse
 import ru.demyanovaf.kotlin.taskManager.common.repo.IRepoTask
 import ru.demyanovaf.kotlin.taskManager.common.repo.TaskRepoBase
+import ru.demyanovaf.kotlin.taskManager.common.repo.errorDb
 import ru.demyanovaf.kotlin.taskManager.common.repo.errorEmptyId
+import ru.demyanovaf.kotlin.taskManager.common.repo.errorEmptyLock
 import ru.demyanovaf.kotlin.taskManager.common.repo.errorNotFound
+import ru.demyanovaf.kotlin.taskManager.common.repo.errorRepoConcurrency
+import ru.demyanovaf.kotlin.taskManager.common.repo.exceptions.RepoEmptyLockException
 import ru.demyanovaf.kotlin.taskManager.repo.common.IRepoTaskInitializable
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
@@ -45,7 +50,7 @@ class TaskRepoInMemory(
 
     override suspend fun createTask(rq: DbTaskRequest): IDbTaskResponse = tryTaskMethod {
         val key = randomUuid()
-        val task = rq.task.copy(id = MgrTaskId(key))
+        val task = rq.task.copy(id = MgrTaskId(key), lock = MgrTaskLock(randomUuid()))
         val entity = TaskEntity(task)
         mutex.withLock {
             cache.put(key, entity)
@@ -67,13 +72,16 @@ class TaskRepoInMemory(
         val rqTask = rq.task
         val id = rqTask.id.takeIf { it != MgrTaskId.NONE } ?: return@tryTaskMethod errorEmptyId
         val key = id.asString()
+        val oldLock = rqTask.lock.takeIf { it != MgrTaskLock.NONE } ?: return@tryTaskMethod errorEmptyLock(id)
 
         mutex.withLock {
             val oldTask = cache.get(key)?.toInternal()
             when {
                 oldTask == null -> errorNotFound(id)
+                oldTask.lock == MgrTaskLock.NONE -> errorDb(RepoEmptyLockException(id))
+                oldTask.lock != oldLock -> errorRepoConcurrency(oldTask, oldLock)
                 else -> {
-                    val newTask = rqTask.copy()
+                    val newTask = rqTask.copy(lock = MgrTaskLock(randomUuid()))
                     val entity = TaskEntity(newTask)
                     cache.put(key, entity)
                     DbTaskResponseOk(newTask)
@@ -86,11 +94,14 @@ class TaskRepoInMemory(
     override suspend fun deleteTask(rq: DbTaskIdRequest): IDbTaskResponse = tryTaskMethod {
         val id = rq.id.takeIf { it != MgrTaskId.NONE } ?: return@tryTaskMethod errorEmptyId
         val key = id.asString()
+        val oldLock = rq.lock.takeIf { it != MgrTaskLock.NONE } ?: return@tryTaskMethod errorEmptyLock(id)
 
         mutex.withLock {
             val oldTask = cache.get(key)?.toInternal()
             when {
                 oldTask == null -> errorNotFound(id)
+                oldTask.lock == MgrTaskLock.NONE -> errorDb(RepoEmptyLockException(id))
+                oldTask.lock != oldLock -> errorRepoConcurrency(oldTask, oldLock)
                 else -> {
                     cache.invalidate(key)
                     DbTaskResponseOk(oldTask)

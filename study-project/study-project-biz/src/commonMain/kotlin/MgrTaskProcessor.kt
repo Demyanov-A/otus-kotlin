@@ -2,6 +2,7 @@ package ru.demyanovaf.kotlin.taskManager.biz
 
 import ru.demyanovaf.kotlin.taskManager.biz.general.initStatus
 import ru.demyanovaf.kotlin.taskManager.biz.general.operation
+import ru.demyanovaf.kotlin.taskManager.biz.repo.checkLock
 import ru.demyanovaf.kotlin.taskManager.biz.repo.initRepo
 import ru.demyanovaf.kotlin.taskManager.biz.repo.prepareResult
 import ru.demyanovaf.kotlin.taskManager.biz.repo.repoCreate
@@ -50,7 +51,7 @@ class MgrTaskProcessor(
 ) {
     suspend fun exec(ctx: MgrContext) = businessChain.exec(ctx.also { it.corSettings = corSettings })
 
-    private val businessChain = rootChain<MgrContext> {
+    private val businessChain = rootChain {
         initStatus("Инициализация статуса")
         initRepo("Инициализация репозитория")
 
@@ -136,6 +137,7 @@ class MgrTaskProcessor(
             chain {
                 title = "Логика сохранения"
                 repoRead("Чтение задачи из БД")
+                checkLock("Проверяем консистентность по оптимистичной блокировке")
                 repoPrepareUpdate("Подготовка объекта для обновления")
                 repoUpdate("Обновление задачи в БД")
             }
@@ -163,6 +165,7 @@ class MgrTaskProcessor(
             chain {
                 title = "Логика удаления"
                 repoRead("Чтение задачи из БД")
+                checkLock("Проверяем консистентность по оптимистичной блокировке")
                 repoPrepareDelete("Подготовка объекта для удаления")
                 repoDelete("Удаление задачи из БД")
             }

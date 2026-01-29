@@ -93,7 +93,7 @@ fun MgrTask.toTransportTask(): TaskResponseObject = TaskResponseObject(
     deadline = deadline.takeIf { it != Instant.NONE }?.toString(),
     dtCreate = dtCreate.takeIf { it != Instant.NONE }?.toString(),
     permissions = permissionsClient.toTransportTask(),
-    lock = lock.toTransportTask() ?: "v-1",
+    lock = lock.toTransportTask(),
 )
 
 internal fun MgrTaskId.toTransportTask() = takeIf { it != MgrTaskId.NONE }?.asString()

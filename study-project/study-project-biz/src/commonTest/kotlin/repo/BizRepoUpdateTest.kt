@@ -30,6 +30,7 @@ class BizRepoUpdateTest {
         userId = userId,
         status = MgrStatus.NEW,
         category = MgrCategory.LOW,
+        lock = MgrTaskLock("123-234-abc-ABC"),
     )
     private val repo = TaskRepositoryMock(
         invokeReadTask = {
@@ -45,6 +46,7 @@ class BizRepoUpdateTest {
                     description = "xyz",
                     status = MgrStatus.NEW,
                     category = MgrCategory.LOW,
+                    lock = MgrTaskLock("123-234-abc-ABC"),
                 )
             )
         }
@@ -60,7 +62,7 @@ class BizRepoUpdateTest {
             description = "xyz",
             status = MgrStatus.NEW,
             category = MgrCategory.LOW,
-            lock = MgrTaskLock("123"),
+            lock = MgrTaskLock("123-234-abc-ABC"),
         )
         val ctx = MgrContext(
             command = command,

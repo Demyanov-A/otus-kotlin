@@ -48,7 +48,7 @@ fun repoNotFoundTest(command: MgrCommand) = runTest {
             description = "xyz",
             status = MgrStatus.NEW,
             category = MgrCategory.LOW,
-            lock = MgrTaskLock("123"),
+            lock = MgrTaskLock("123-234-abc-ABC"),
         ),
     )
     processor.exec(ctx)

@@ -46,7 +46,7 @@ internal abstract class TaskRepoBaseV1Test {
         ),
         prepareCtx(MgrTaskStub.prepareResult {
             id = MgrTaskId(uuidNew)
-            lock = MgrTaskLock.NONE
+            lock = MgrTaskLock(uuidNew)
         })
             .toTransportCreate()
             .copy(responseType = "create")
@@ -71,7 +71,10 @@ internal abstract class TaskRepoBaseV1Test {
             task = MgrTaskStub.prepareResult { title = "add" }.toTransportUpdate(),
             debug = debug,
         ),
-        prepareCtx(MgrTaskStub.prepareResult { title = "add" })
+        prepareCtx(MgrTaskStub.prepareResult {
+            title = "add"
+            lock = MgrTaskLock(uuidNew)
+        })
             .toTransportUpdate().copy(responseType = "update")
     )
 

@@ -21,7 +21,7 @@ object MgrStubTasks {
             status = MgrStatus.NEW,
             deadline = Instant.NONE,
             dtCreate = Instant.NONE,
-            lock = MgrTaskLock("123"),
+            lock = MgrTaskLock("123-234-abc-ABC"),
             permissionsClient = mutableSetOf(
                 MgrTaskPermissionClient.READ,
                 MgrTaskPermissionClient.UPDATE,
