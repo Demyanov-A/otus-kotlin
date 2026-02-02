@@ -45,7 +45,15 @@ abstract class RepoTaskSearchTest {
 
     @Test
     fun searchDeadline() = runRepoTest {
-        val result = repo.searchTask(DbTaskFilterRequest(deadline = Instant.NONE, dtCreate = Instant.NONE))
+        val result = repo.searchTask(DbTaskFilterRequest(deadline = Instant.NONE))
+        assertIs<DbTasksResponseOk>(result)
+        val expected = initializedObjects.sortedBy { it.id.asString() }
+        assertEquals(expected, result.data.sortedBy { it.id.asString() })
+    }
+
+    @Test
+    fun searchDtCreate() = runRepoTest {
+        val result = repo.searchTask(DbTaskFilterRequest(dtCreate = Instant.NONE))
         assertIs<DbTasksResponseOk>(result)
         val expected = initializedObjects.sortedBy { it.id.asString() }
         assertEquals(expected, result.data.sortedBy { it.id.asString() })

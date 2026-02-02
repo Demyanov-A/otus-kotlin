@@ -43,3 +43,5 @@ include(":study-project-repo-common")
 include(":study-project-repo-inmemory")
 include(":study-project-repo-stubs")
 include(":study-project-repo-tests")
+
+include(":study-project-repo-pgjvm")

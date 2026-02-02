@@ -20,6 +20,8 @@ tasks {
     register("buildInfra") {
         group = "build"
         dependsOn(project(":ok-dcompose").getTasksByName("publish",false))
-        dependsOn(project(":ok-migration-pg").getTasksByName("buildImage",false))
+        dependsOn(project(":ok-migration-pg").getTasksByName("buildImages",false))
     }
+
+    register("clean"){group = "build"}
 }

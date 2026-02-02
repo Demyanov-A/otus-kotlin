@@ -24,3 +24,17 @@ springdoc:
         url: specs-task-v1.yaml
       - name: v2
         url: specs-task-v2.yaml
+
+taskManager:
+  repository:
+    test: "inmemory"
+    prod: "$DB_TYPE_PROD:inmemory"
+
+psql:
+  schema: public
+  database: "${MGRTASK_DB:taskManager}"
+  host: "${MGRTASK_HOST:localhost}"
+  port: "${MGRTASK_PORT:5432}"
+  user: "${MGRTASK_USER:postgres}"
+  password: "${MGRTASK_PASS:taskManager-pass}"
+

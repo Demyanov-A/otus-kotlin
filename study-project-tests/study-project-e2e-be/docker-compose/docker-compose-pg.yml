@@ -2,6 +2,8 @@ version: '3.9'
 services:
   psql:
     image: postgres
+    #    volumes:
+#      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     environment:
@@ -16,14 +18,13 @@ services:
       retries: 5
 
   liquibase:
-    image: "ok-migration-pg:0.1.0"
-    environment:
-      LIQUIBASE_URL:
-      LIQUIBASE_COMMAND_URL: jdbc:postgresql://psql:5432/taskManager
-      LIQUIBASE_COMMAND_USERNAME: postgres
-      LIQUIBASE_COMMAND_PASSWORD: "taskManager-pass"
-      LIQUIBASE_LIQUIBASE_SCHEMA_NAME: public
-#      tableName: taskManager_tasks
+    image: liquibase/liquibase
+    volumes:
+      - ./volumes/liquibase-psql:/liquibase/changelog
     depends_on:
       psql:
         condition: service_healthy
+    command: ["--defaults-file=/liquibase/changelog/liquibase.properties", "--search-path=/liquibase/changelog", "--url=jdbc:postgresql://psql:5432/taskManager", "update"]
+
+#volumes:
+#  postgres_data:

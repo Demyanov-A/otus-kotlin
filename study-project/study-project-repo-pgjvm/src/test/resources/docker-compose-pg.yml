@@ -23,7 +23,8 @@ services:
       LIQUIBASE_COMMAND_USERNAME: postgres
       LIQUIBASE_COMMAND_PASSWORD: "taskManager-pass"
       LIQUIBASE_LIQUIBASE_SCHEMA_NAME: public
-#      tableName: taskManager_tasks
+#      tableName: tasks
+
     depends_on:
       psql:
         condition: service_healthy

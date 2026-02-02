@@ -38,6 +38,7 @@ dependencies {
     // DB
     implementation(project(":study-project-repo-stubs"))
     implementation(project(":study-project-repo-inmemory"))
+    implementation(project(":study-project-repo-pgjvm"))
     testImplementation(project(":study-project-repo-common"))
     testImplementation(project(":study-project-stubs"))
 
@@ -66,4 +67,18 @@ tasks {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    environment("MGRTASK_DB", "test_db")
+}
+
+tasks.bootBuildImage {
+    builder = "paketobuildpacks/builder-jammy-base:latest"
+    environment.set(mapOf("BP_HEALTH_CHECKER_ENABLED" to "true"))
+    buildpacks.set(
+        listOf(
+            "docker.io/paketobuildpacks/adoptium",
+            "urn:cnb:builder:paketo-buildpacks/java",
+            "docker.io/paketobuildpacks/health-checker:latest"
+        )
+    )
+
 }

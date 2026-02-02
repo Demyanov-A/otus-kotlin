@@ -60,6 +60,8 @@ abstract class RepoTaskUpdateTest {
     @Test
     fun updateSuccess() = runRepoTest {
         val result = repo.updateTask(DbTaskRequest(reqUpdateSuccess))
+        println("ERRORS: ${(result as? DbTaskResponseErr)?.errors}")
+        println("ERRORSWD: ${(result as? DbTaskResponseErrWithData)?.errors}")
         assertIs<DbTaskResponseOk>(result)
         assertEquals(reqUpdateSuccess.id, result.data.id)
         assertEquals(reqUpdateSuccess.title, result.data.title)

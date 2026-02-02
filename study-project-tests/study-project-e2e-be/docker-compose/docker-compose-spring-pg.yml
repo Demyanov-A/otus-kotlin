@@ -1,5 +1,26 @@
 version: '3.9'
+
 services:
+  app-spring:
+    image: study-project-app-spring:0.0.1
+    ports:
+      - "8080:8080"
+    environment:
+      DB_TYPE_PROD: "psql"
+      MGRTASK_HOST: "psql"
+      MGRTASK_PORT: 5432
+      MGRTASK_DB: "taskManager"
+      MGRTASK_USER: "postgres"
+      MGRTASK_PASS: "taskManager-pass"
+      THC_PATH: "/actuator/health"
+    depends_on:
+      psql:
+        condition: service_healthy
+      liquibase:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "/workspace/health-check"]
+
   psql:
     image: postgres
     ports:
@@ -23,7 +44,8 @@ services:
       LIQUIBASE_COMMAND_USERNAME: postgres
       LIQUIBASE_COMMAND_PASSWORD: "taskManager-pass"
       LIQUIBASE_LIQUIBASE_SCHEMA_NAME: public
-#      tableName: taskManager_tasks
+    #      tableName: tasks
+
     depends_on:
       psql:
         condition: service_healthy

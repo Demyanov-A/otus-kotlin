@@ -1,5 +1,6 @@
 package ru.demyanovaf.kotlin.taskManager.backend.repo.tests
 
+import ru.demyanovaf.kotlin.taskManager.common.models.MgrError
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
 import ru.demyanovaf.kotlin.taskManager.common.repo.DbTaskIdRequest
@@ -25,14 +26,17 @@ abstract class RepoTaskReadTest {
 
     @Test
     fun readNotFound() = runRepoTest {
+        println("REQUESTING")
         val result = repo.readTask(DbTaskIdRequest(notFoundId))
+        println("RESULT: $result")
 
         assertIs<DbTaskResponseErr>(result)
-        val error = result.errors.find { it.code == "repo-not-found" }
+        println("ERRORS: ${result.errors}")
+        val error: MgrError? = result.errors.find { it.code == "repo-not-found" }
         assertEquals("id", error?.field)
     }
 
-    companion object : BaseInitTasks("delete") {
+    companion object : BaseInitTasks("read") {
         override val initObjects: List<MgrTask> = listOf(
             createInitTestModel("read")
         )

@@ -11,8 +11,11 @@ import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugStubs
 val debug = TaskDebug(mode = TaskRequestDebugMode.STUB, stub = TaskRequestDebugStubs.SUCCESS)
 
 val someCreateTask = TaskCreateObject(
+    userId = "",
     title = "Задача №1",
     description = "Задача №1",
     status = Status.NEW,
-    category = Category.LOW
+    category = Category.LOW,
+    dtCreate = "",
+    deadline = ""
 )

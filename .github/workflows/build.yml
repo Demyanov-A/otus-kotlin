@@ -48,17 +48,19 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Run Tests
+      - name: Build Migrations
+        env:
+          DOCKER_HOST: unix:///var/run/docker.sock
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.14.1
           arguments: buildMigrations --info
-      - name: Run Tests
+      - name: Build Main Images
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.14.1
           arguments: buildImages --info
-      - name: Run Tests
+      - name: Run E2E tests
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.14.1

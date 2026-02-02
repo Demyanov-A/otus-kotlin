@@ -38,7 +38,7 @@ tasks {
     }
 
     //taskRegistration("build","build")
-    //taskRegistration("clean", "build")
+    taskRegistration("clean", "build")
     taskRegistration("check", "verification")
 
     register("build") {

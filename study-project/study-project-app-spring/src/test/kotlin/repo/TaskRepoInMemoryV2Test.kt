@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
+import org.springframework.context.annotation.Import
 import org.springframework.test.web.reactive.server.WebTestClient
 import ru.demyanovaf.kotlin.taskManager.app.spring.config.TaskConfig
 import ru.demyanovaf.kotlin.taskManager.app.spring.controllers.TaskControllerV2Fine
@@ -24,7 +25,11 @@ import ru.demyanovaf.kotlin.taskManager.stubs.MgrTaskStub
 import kotlin.test.Test
 
 // Temporary simple test with stubs
-@WebFluxTest(TaskControllerV2Fine::class, TaskConfig::class)
+@WebFluxTest(
+    TaskControllerV2Fine::class, TaskConfig::class,
+    properties = ["spring.main.allow-bean-definition-overriding=true"]
+)
+@Import(RepoInMemoryConfig::class)
 internal class TaskRepoInMemoryV2Test : TaskRepoBaseV2Test() {
     @Autowired
     override lateinit var webClient: WebTestClient

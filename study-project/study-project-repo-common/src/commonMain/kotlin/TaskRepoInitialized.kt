@@ -6,7 +6,7 @@ import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
  * Делегат для всех репозиториев, позволяющий инициализировать базу данных предзагруженными данными
  */
 class TaskRepoInitialized(
-    private val repo: IRepoTaskInitializable,
+    val repo: IRepoTaskInitializable,
     initObjects: Collection<MgrTask> = emptyList(),
 ) : IRepoTaskInitializable by repo {
     @Suppress("unused")
