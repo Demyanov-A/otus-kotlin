@@ -17,7 +17,6 @@ import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskRequestDebugMode as Ta
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TestWireMock : BaseContainerTest(WiremockDockerCompose) {
     private val client: Client = RestClient(compose)
-
     @Test
     fun info() {
         println("${this::class.simpleName}")
@@ -25,8 +24,6 @@ class TestWireMock : BaseContainerTest(WiremockDockerCompose) {
 
     @Nested
     internal inner class V1 : ScenariosV1(client, TaskDebugV1(mode = TaskRequestDebugModeV1.PROD))
-
     @Nested
     internal inner class V2 : ScenariosV2(client, TaskDebugV2(mode = TaskRequestDebugModeV2.PROD))
-
 }

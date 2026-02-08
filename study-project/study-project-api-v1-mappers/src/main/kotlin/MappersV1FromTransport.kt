@@ -142,7 +142,7 @@ private fun TaskCreateObject.toInternal(): MgrTask = MgrTask(
     } catch (_: Exception) {
         Instant.NONE
     },
-    status = MgrStatus.NEW,
+    status = this.status.fromTransport(),
     dtCreate = try {
         this.dtCreate?.toInstant() ?: Instant.NONE
     } catch (_: Exception) {
@@ -183,7 +183,7 @@ private fun Status?.fromTransport(): MgrStatus = when (this) {
     Status.TO_DO -> MgrStatus.TO_DO
     Status.IN_PROGRESS -> MgrStatus.IN_PROGRESS
     Status.HOLD -> MgrStatus.HOLD
-    Status.DONE -> MgrStatus.HOLD
+    Status.DONE -> MgrStatus.DONE
     Status.CANCELED -> MgrStatus.CANCELED
     null -> MgrStatus.NONE
 }

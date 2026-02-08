@@ -138,7 +138,7 @@ private fun TaskCreateObject.toInternal(): MgrTask = MgrTask(
     } catch (_: Exception) {
         Instant.NONE
     },
-    status = MgrStatus.NEW,
+    status = this.status.fromTransport(),
     dtCreate = try {
         this.deadline?.let { Instant.parse(it) } ?: Instant.NONE
     } catch (_: Exception) {

@@ -4,7 +4,7 @@
     "url": "/v1/task/search",
     "bodyPatterns": [
       {
-        "matchesJsonPath": "$.taskFilter[?(@.searchString == 'new')]"
+        "matchesJsonPath": "$.taskFilter[?(@.searchString == 'Задача')]"
       }
     ]
   },

@@ -71,7 +71,7 @@ abstract class ScenarioUpdateV1(
             "task/delete", TaskDeleteRequest(
                 requestType = "delete",
                 debug = debug,
-                task = TaskDeleteObject(cObj.id, cObj.lock),
+                task = TaskDeleteObject(ruObj.id, ruObj.lock),
             )
         ) as TaskDeleteResponse
 

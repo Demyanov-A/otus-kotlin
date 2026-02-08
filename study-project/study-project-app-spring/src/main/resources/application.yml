@@ -5,10 +5,13 @@ management:
   endpoint:
     env:
       enabled: true
+    health:
+      enabled: true
+      show-details: always
   endpoints:
     web:
       exposure:
-        include: info,env
+        include: info,env, health
 
 spring:
   jackson:

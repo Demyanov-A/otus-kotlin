@@ -50,7 +50,7 @@ abstract class ScenarioSearchV1(
             cObj
         }
 
-        val sObj = TaskSearchFilter(searchString = "new")
+        val sObj = TaskSearchFilter(searchString = "Задача")
         val resSearch = client.sendAndReceive(
             "task/search",
             TaskSearchRequest(
