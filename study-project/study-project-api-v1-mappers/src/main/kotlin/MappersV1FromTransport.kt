@@ -1,6 +1,5 @@
 package ru.demyanovaf.kotlin.taskManager.mappers.v1
 
-import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toInstant
 import ru.demyanovaf.kotlin.taskManager.api.v1.models.Category
@@ -117,7 +116,20 @@ fun MgrContext.fromTransport(request: TaskSearchRequest) {
 }
 
 private fun TaskSearchFilter?.toInternal(): MgrTaskFilter = MgrTaskFilter(
-    searchString = this?.searchString ?: ""
+    searchString = this?.searchString ?: "",
+    userId = this?.userId?.let { MgrUserId(it) } ?: MgrUserId.NONE,
+    status = this?.status.fromTransport(),
+    category = this?.category.fromTransport(),
+    deadline = try {
+        this?.deadline?.toInstant() ?: Instant.NONE
+    } catch (_: Exception) {
+        Instant.NONE
+    },
+    dtCreate = try {
+        this?.deadline?.toInstant() ?: Instant.NONE
+    } catch (_: Exception) {
+        Instant.NONE
+    },
 )
 
 private fun TaskCreateObject.toInternal(): MgrTask = MgrTask(
@@ -130,8 +142,12 @@ private fun TaskCreateObject.toInternal(): MgrTask = MgrTask(
     } catch (_: Exception) {
         Instant.NONE
     },
-    status = MgrStatus.NEW,
-    dtCreate = Clock.System.now()
+    status = this.status.fromTransport(),
+    dtCreate = try {
+        this.dtCreate?.toInstant() ?: Instant.NONE
+    } catch (_: Exception) {
+        Instant.NONE
+    },
 )
 
 private fun TaskUpdateObject.toInternal(): MgrTask = MgrTask(
@@ -143,6 +159,11 @@ private fun TaskUpdateObject.toInternal(): MgrTask = MgrTask(
     status = this.status.fromTransport(),
     deadline = try {
         this.deadline?.toInstant() ?: Instant.NONE
+    } catch (_: Exception) {
+        Instant.NONE
+    },
+    dtCreate = try {
+        this.dtCreate?.toInstant() ?: Instant.NONE
     } catch (_: Exception) {
         Instant.NONE
     },
@@ -162,7 +183,7 @@ private fun Status?.fromTransport(): MgrStatus = when (this) {
     Status.TO_DO -> MgrStatus.TO_DO
     Status.IN_PROGRESS -> MgrStatus.IN_PROGRESS
     Status.HOLD -> MgrStatus.HOLD
-    Status.DONE -> MgrStatus.HOLD
+    Status.DONE -> MgrStatus.DONE
     Status.CANCELED -> MgrStatus.CANCELED
     null -> MgrStatus.NONE
 }

@@ -12,6 +12,10 @@ gradlePlugin {
             id = "build-kmp"
             implementationClass = "ru.demyanovaf.kotlin.taskManager.plugin.BuildPluginMultiplatform"
         }
+        register("build-docker") {
+            id = "build-docker"
+            implementationClass = "ru.demyanovaf.kotlin.taskManager.plugin.DockerPlugin"
+        }
     }
 }
 

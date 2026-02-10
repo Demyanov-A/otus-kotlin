@@ -2,10 +2,12 @@
 **/.idea/
 **/.kotlin/
 **/build/
+/kotlin-js-store/
 
 **/*.iml
 
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/**/build/
 
+**/*.log
 **/*.hprof

@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+management:
+  endpoint:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info,env
+
+spring:
+  jackson:
+    default-property-inclusion: non_null
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    use-root-path: true
+    urls:
+      - name: v1
+        url: specs-task-v1.yaml
+      - name: v2
+        url: specs-task-v2.yaml
+
+taskManager:
+  repository:
+    test: "inmemory"
+    prod: "$DB_TYPE_PROD:inmemory"
+
+psql:
+  schema: public
+  database: "${MGRTASK_DB:taskManager}"
+  host: "${MGRTASK_HOST:localhost}"
+  port: "${MGRTASK_PORT:5432}"
+  user: "${MGRTASK_USER:postgres}"
+  password: "${MGRTASK_PASS:taskManager-pass}"
+

@@ -79,7 +79,7 @@ components:
           type: string
 
     TaskLog:
-      title: Модель лога для объявления
+      title: Модель лога для задачи
       type: object
       properties:
         id:

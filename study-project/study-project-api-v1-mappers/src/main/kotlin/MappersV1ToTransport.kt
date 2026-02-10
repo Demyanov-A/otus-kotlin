@@ -127,19 +127,19 @@ internal fun MgrCategory.toTransportTask(): Category? = when (this) {
     MgrCategory.NONE -> null
 }
 
-private fun List<MgrError>.toTransportErrors(): List<Error>? = this
+internal fun List<MgrError>.toTransportErrors(): List<Error>? = this
     .map { it.toTransportTask() }
     .toList()
     .takeIf { it.isNotEmpty() }
 
-private fun MgrError.toTransportTask() = Error(
+internal fun MgrError.toTransportTask() = Error(
     code = code.takeIf { it.isNotBlank() },
     group = group.takeIf { it.isNotBlank() },
     field = field.takeIf { it.isNotBlank() },
     message = message.takeIf { it.isNotBlank() },
 )
 
-private fun MgrState.toResult(): ResponseResult? = when (this) {
+internal fun MgrState.toResult(): ResponseResult? = when (this) {
     MgrState.RUNNING -> ResponseResult.SUCCESS
     MgrState.FAILING -> ResponseResult.ERROR
     MgrState.FINISHING -> ResponseResult.SUCCESS

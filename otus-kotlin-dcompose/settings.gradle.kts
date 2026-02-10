@@ -21,3 +21,4 @@ pluginManagement {
 }
 
 include(":ok-dcompose")
+include(":ok-migration-pg")

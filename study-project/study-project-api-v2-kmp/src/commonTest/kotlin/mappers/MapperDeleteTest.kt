@@ -1,6 +1,5 @@
 package ru.demyanovaf.kotlin.taskManager.api.v2.mappers
 
-import kotlinx.datetime.Clock
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDebug
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDeleteRequest
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskDeleteResponse
@@ -40,13 +39,10 @@ class MapperDeleteTest {
 
     @Test
     fun toTransport() {
-        val dtCreate = Clock.System.now()
         val context = MgrContext(
             requestId = MgrRequestId("1234"),
             command = MgrCommand.DELETE,
-            taskResponse = MgrTaskStub.prepareResult {
-                this.dtCreate = dtCreate
-            },
+            taskResponse = MgrTaskStub.get(),
             errors = mutableListOf(
                 MgrError(
                     code = "err",
@@ -60,7 +56,6 @@ class MapperDeleteTest {
 
         val req = context.toTransportTask() as TaskDeleteResponse
         val expected = MgrTaskStub.get()
-        expected.dtCreate = dtCreate
 
         assertEquals(req.task, expected.toTransportTask())
         assertEquals(1, req.errors?.size)

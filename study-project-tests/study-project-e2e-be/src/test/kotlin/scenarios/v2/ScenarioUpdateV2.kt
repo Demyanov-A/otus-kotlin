@@ -68,7 +68,7 @@ abstract class ScenarioUpdateV2(
         val resDelete = client.sendAndReceive(
             "task/delete", TaskDeleteRequest(
                 debug = debug,
-                task = TaskDeleteObject(cObj.id, cObj.lock),
+                task = TaskDeleteObject(ruObj.id, ruObj.lock),
             )
         ) as TaskDeleteResponse
 

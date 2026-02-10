@@ -17,10 +17,16 @@ fun Throwable.asMgrError(
     exception = this,
 )
 
-inline fun MgrContext.addError(vararg error: MgrError) = errors.addAll(error)
+inline fun MgrContext.addError(error: MgrError) = errors.add(error)
+inline fun MgrContext.addErrors(error: Collection<MgrError>) = errors.addAll(error)
 
 inline fun MgrContext.fail(error: MgrError) {
     addError(error)
+    state = MgrState.FAILING
+}
+
+inline fun MgrContext.fail(errors: Collection<MgrError>) {
+    addErrors(errors)
     state = MgrState.FAILING
 }
 
@@ -39,4 +45,16 @@ inline fun errorValidation(
     group = "validation",
     message = "Validation error for field $field: $description",
     level = level,
+)
+
+inline fun errorSystem(
+    violationCode: String,
+    level: LogLevel = LogLevel.ERROR,
+    e: Throwable,
+) = MgrError(
+    code = "system-$violationCode",
+    group = "system",
+    message = "System error occurred. Our stuff has been informed, please retry later",
+    level = level,
+    exception = e,
 )

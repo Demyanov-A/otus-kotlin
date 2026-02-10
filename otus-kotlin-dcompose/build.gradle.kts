@@ -1,6 +1,5 @@
 plugins {
-    id("build-jvm")
-    id("maven-publish")
+    id("build-docker") apply false
 }
 
 group = "ru.demyanovaf.kotlin.taskManager.tests"
@@ -21,5 +20,8 @@ tasks {
     register("buildInfra") {
         group = "build"
         dependsOn(project(":ok-dcompose").getTasksByName("publish",false))
+        dependsOn(project(":ok-migration-pg").getTasksByName("buildImages",false))
     }
+
+    register("clean"){group = "build"}
 }

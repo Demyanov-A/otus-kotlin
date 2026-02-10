@@ -3,14 +3,11 @@ package validation
 import kotlinx.coroutines.test.runTest
 import ru.demyanovaf.kotlin.taskManager.biz.MgrTaskProcessor
 import ru.demyanovaf.kotlin.taskManager.common.MgrContext
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrCommand
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrState
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrTask
-import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskId
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrTaskLock
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrWorkMode
+import ru.demyanovaf.kotlin.taskManager.stubs.MgrTaskStub
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -20,14 +17,7 @@ fun validationLockCorrect(command: MgrCommand, processor: MgrTaskProcessor) = ru
         command = command,
         state = MgrState.NONE,
         workMode = MgrWorkMode.TEST,
-        taskRequest = MgrTask(
-            id = MgrTaskId("123-234-abc-ABC"),
-            title = "abc",
-            description = "abc",
-            status = MgrStatus.NEW,
-            category = MgrCategory.LOW,
-            lock = MgrTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = MgrTaskStub.get()
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -39,14 +29,9 @@ fun validationLockTrim(command: MgrCommand, processor: MgrTaskProcessor) = runTe
         command = command,
         state = MgrState.NONE,
         workMode = MgrWorkMode.TEST,
-        taskRequest = MgrTask(
-            id = MgrTaskId("123-234-abc-ABC"),
-            title = "abc",
-            description = "abc",
-            status = MgrStatus.NEW,
-            category = MgrCategory.LOW,
-            lock = MgrTaskLock(" \n\t 123-234-abc-ABC \n\t "),
-        ),
+        taskRequest = MgrTaskStub.prepareResult {
+            lock = MgrTaskLock(" \n\t 123-234-abc-ABC \n\t ")
+        },
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -58,14 +43,9 @@ fun validationLockEmpty(command: MgrCommand, processor: MgrTaskProcessor) = runT
         command = command,
         state = MgrState.NONE,
         workMode = MgrWorkMode.TEST,
-        taskRequest = MgrTask(
-            id = MgrTaskId("123-234-abc-ABC"),
-            title = "abc",
-            description = "abc",
-            status = MgrStatus.NEW,
-            category = MgrCategory.LOW,
-            lock = MgrTaskLock(""),
-        ),
+        taskRequest = MgrTaskStub.prepareResult {
+            lock = MgrTaskLock("")
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)
@@ -80,14 +60,9 @@ fun validationLockFormat(command: MgrCommand, processor: MgrTaskProcessor) = run
         command = command,
         state = MgrState.NONE,
         workMode = MgrWorkMode.TEST,
-        taskRequest = MgrTask(
-            id = MgrTaskId("123-234-abc-ABC"),
-            title = "abc",
-            description = "abc",
-            status = MgrStatus.NEW,
-            category = MgrCategory.LOW,
-            lock = MgrTaskLock("!@#\$%^&*(),.{}"),
-        ),
+        taskRequest = MgrTaskStub.prepareResult {
+            lock = MgrTaskLock("!@#\$%^&*(),.{}")
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)

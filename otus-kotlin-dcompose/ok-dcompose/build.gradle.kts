@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "ru.demyanovaf.kotlin.taskManager.tests"
-version = "0.1.0"
+version = "1.0"
 
 allprojects {
     repositories {
