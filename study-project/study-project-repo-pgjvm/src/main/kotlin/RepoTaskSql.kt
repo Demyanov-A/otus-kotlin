@@ -6,7 +6,6 @@ import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
@@ -152,7 +151,7 @@ class RepoTaskSql(
                     if (rq.dtCreate.toString().isNotBlank()) {
                         add(taskTable.dtCreated like "%${rq.dtCreate.toString().take(10)}%")
                     }
-                }.reduce { a, b -> a and b }
+                }.reduce { a, b -> a or b }
             }
             DbTasksResponseOk(data = res.map { taskTable.from(it) })
         }, {
