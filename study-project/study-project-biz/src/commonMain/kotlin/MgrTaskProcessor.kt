@@ -28,11 +28,13 @@ import ru.demyanovaf.kotlin.taskManager.biz.validation.finishTaskFilterValidatio
 import ru.demyanovaf.kotlin.taskManager.biz.validation.finishTaskValidation
 import ru.demyanovaf.kotlin.taskManager.biz.validation.validateDescriptionHasContent
 import ru.demyanovaf.kotlin.taskManager.biz.validation.validateDescriptionNotEmpty
+import ru.demyanovaf.kotlin.taskManager.biz.validation.validateDtCreateOnCreate
 import ru.demyanovaf.kotlin.taskManager.biz.validation.validateIdNotEmpty
 import ru.demyanovaf.kotlin.taskManager.biz.validation.validateIdProperFormat
 import ru.demyanovaf.kotlin.taskManager.biz.validation.validateLockNotEmpty
 import ru.demyanovaf.kotlin.taskManager.biz.validation.validateLockProperFormat
 import ru.demyanovaf.kotlin.taskManager.biz.validation.validateSearchStringLength
+import ru.demyanovaf.kotlin.taskManager.biz.validation.validateStatusOnCreate
 import ru.demyanovaf.kotlin.taskManager.biz.validation.validateTitleHasContent
 import ru.demyanovaf.kotlin.taskManager.biz.validation.validateTitleNotEmpty
 import ru.demyanovaf.kotlin.taskManager.biz.validation.validation
@@ -72,6 +74,8 @@ class MgrTaskProcessor(
                 validateTitleHasContent("Проверка символов")
                 validateDescriptionNotEmpty("Проверка, что описание не пусто")
                 validateDescriptionHasContent("Проверка символов")
+                validateStatusOnCreate("Проверка статуса при создании")
+                validateDtCreateOnCreate("Проверка метки времени при создании")
 
                 finishTaskValidation("Завершение проверок")
             }
