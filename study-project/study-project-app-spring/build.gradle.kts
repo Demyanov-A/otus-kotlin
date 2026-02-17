@@ -71,7 +71,7 @@ tasks.withType<Test> {
 }
 
 tasks.bootBuildImage {
-    builder = "paketobuildpacks/builder-jammy-base:0.4.539"
+    builder = "paketobuildpacks/builder-jammy-base:latest" //0.4.539
     environment.set(mapOf("BP_HEALTH_CHECKER_ENABLED" to "true"))
     buildpacks.set(
         listOf(
