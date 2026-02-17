@@ -61,6 +61,8 @@ jobs:
           gradle-version: 8.14.1
           arguments: buildImages --info
       - name: Run E2E tests
+        env:
+          DOCKER_HOST: unix:///var/run/docker.sock
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.14.1
