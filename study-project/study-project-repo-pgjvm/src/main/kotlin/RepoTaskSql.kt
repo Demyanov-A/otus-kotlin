@@ -3,6 +3,7 @@ package ru.demyanovaf.kotlin.taskManager.backend.repo.postgresql
 import com.benasher44.uuid.uuid4
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.Instant
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -14,6 +15,7 @@ import org.jetbrains.exposed.sql.or
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.updateReturning
+import ru.demyanovaf.kotlin.taskManager.common.NONE
 import ru.demyanovaf.kotlin.taskManager.common.helpers.asMgrError
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrCategory
 import ru.demyanovaf.kotlin.taskManager.common.models.MgrStatus
@@ -146,11 +148,11 @@ class RepoTaskSql(
                                     or (taskTable.description like "%${rq.titleFilter}%")
                         )
                     }
-                    if (rq.deadline.toString().isNotBlank()) {
-                        add(taskTable.deadline like "%${rq.deadline.toString().take(10)}%")
+                    if (rq.deadline != Instant.NONE) {
+                        add(taskTable.deadline like "%${rq.deadline.toString().take(13)}%")
                     }
-                    if (rq.dtCreate.toString().isNotBlank()) {
-                        add(taskTable.dtCreated like "%${rq.dtCreate.toString().take(10)}%")
+                    if (rq.dtCreate != Instant.NONE) {
+                        add(taskTable.dtCreated like "%${rq.dtCreate.toString().take(13)}%")
                     }
                 }.reduce { a, b -> a and b }
             }

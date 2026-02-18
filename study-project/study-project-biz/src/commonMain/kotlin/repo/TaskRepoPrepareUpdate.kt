@@ -18,7 +18,6 @@ fun ICorChainDsl<MgrContext>.repoPrepareUpdate(title: String) = worker {
             this.status = taskValidated.status
             this.category = taskValidated.category
             this.deadline = taskValidated.deadline
-            this.dtCreate = taskValidated.dtCreate
             this.lock = taskValidated.lock
         }
     }

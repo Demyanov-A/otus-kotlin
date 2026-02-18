@@ -126,7 +126,7 @@ private fun TaskSearchFilter?.toInternal(): MgrTaskFilter = MgrTaskFilter(
         Instant.NONE
     },
     dtCreate = try {
-        this?.deadline?.toInstant() ?: Instant.NONE
+        this?.dtCreate?.toInstant() ?: Instant.NONE
     } catch (_: Exception) {
         Instant.NONE
     },

@@ -47,6 +47,11 @@ dependencies {
     testImplementation(libs.spring.test)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.spring.mockk)
+
+    implementation(libs.kafka.client)
+    implementation(libs.coroutines.core)
+    implementation(libs.kotlinx.atomicfu)
+
 }
 
 tasks {
@@ -71,7 +76,7 @@ tasks.withType<Test> {
 }
 
 tasks.bootBuildImage {
-    builder = "paketobuildpacks/builder-jammy-base:latest"
+    builder = "paketobuildpacks/builder-jammy-base:latest" //0.4.539
     environment.set(mapOf("BP_HEALTH_CHECKER_ENABLED" to "true"))
     buildpacks.set(
         listOf(

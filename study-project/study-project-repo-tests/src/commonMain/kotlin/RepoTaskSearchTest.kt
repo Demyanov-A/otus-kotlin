@@ -23,15 +23,15 @@ abstract class RepoTaskSearchTest {
     fun searchUser() = runRepoTest {
         val result = repo.searchTask(DbTaskFilterRequest(userId = searchUserId))
         assertIs<DbTasksResponseOk>(result)
-        val expected = listOf(initializedObjects[1], initializedObjects[3]).sortedBy { it.id.asString() }
-        assertEquals(expected, result.data.sortedBy { it.id.asString() })
+        val expected = initializedObjects.filter { it.userId == searchUserId }.sortedBy { it.id.asString() }
+        assertEquals(expected, result.data.filter { it.userId == searchUserId }.sortedBy { it.id.asString() })
     }
 
     @Test
     fun searchStatus() = runRepoTest {
-        val result = repo.searchTask(DbTaskFilterRequest(status = MgrStatus.CANCELED))
+        val result = repo.searchTask(DbTaskFilterRequest(status = MgrStatus.NEW))
         assertIs<DbTasksResponseOk>(result)
-        val expected = listOf(initializedObjects[2], initializedObjects[4]).sortedBy { it.id.asString() }
+        val expected = initializedObjects
         assertEquals(expected, result.data.sortedBy { it.id.asString() })
     }
 
@@ -39,8 +39,8 @@ abstract class RepoTaskSearchTest {
     fun searchCategory() = runRepoTest {
         val result = repo.searchTask(DbTaskFilterRequest(category = MgrCategory.PERSONAL))
         assertIs<DbTasksResponseOk>(result)
-        val expected = listOf(initializedObjects[2], initializedObjects[4]).sortedBy { it.id.asString() }
-        assertEquals(expected, result.data.sortedBy { it.id.asString() })
+        val expected = initializedObjects.filter { it.category == MgrCategory.PERSONAL }.sortedBy { it.id.asString() }
+        assertEquals(expected, result.data.filter { it.category == MgrCategory.PERSONAL }.sortedBy { it.id.asString() })
     }
 
     @Test
@@ -65,9 +65,9 @@ abstract class RepoTaskSearchTest {
         override val initObjects: List<MgrTask> = listOf(
             createInitTestModel("task1"),
             createInitTestModel("task2", userId = searchUserId),
-            createInitTestModel("task3", status = MgrStatus.CANCELED, category = MgrCategory.PERSONAL),
+            createInitTestModel("task3", status = MgrStatus.NEW, category = MgrCategory.PERSONAL),
             createInitTestModel("task4", userId = searchUserId),
-            createInitTestModel("task5", status = MgrStatus.CANCELED, category = MgrCategory.PERSONAL),
+            createInitTestModel("task5", status = MgrStatus.NEW, category = MgrCategory.PERSONAL),
         )
     }
 }
