@@ -122,7 +122,7 @@ private fun TaskSearchFilter?.toInternal(): MgrTaskFilter = MgrTaskFilter(
         Instant.NONE
     },
     dtCreate = try {
-        this?.deadline?.let { Instant.parse(it) } ?: Instant.NONE
+        this?.dtCreate?.let { Instant.parse(it) } ?: Instant.NONE
     } catch (_: Exception) {
         Instant.NONE
     },

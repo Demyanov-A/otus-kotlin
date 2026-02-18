@@ -47,6 +47,11 @@ dependencies {
     testImplementation(libs.spring.test)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.spring.mockk)
+
+    implementation(libs.kafka.client)
+    implementation(libs.coroutines.core)
+    implementation(libs.kotlinx.atomicfu)
+
 }
 
 tasks {
