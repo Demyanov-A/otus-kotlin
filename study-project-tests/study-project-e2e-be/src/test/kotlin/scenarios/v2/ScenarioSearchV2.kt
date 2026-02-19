@@ -2,6 +2,7 @@ package ru.demyanovaf.kotlin.taskManager.e2e.be.scenarios.v2
 
 import io.kotest.engine.runBlocking
 import org.junit.jupiter.api.Test
+import ru.demyanovaf.kotlin.taskManager.api.v2.models.Category
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.ResponseResult
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.Status
 import ru.demyanovaf.kotlin.taskManager.api.v2.models.TaskCreateRequest
@@ -29,8 +30,8 @@ abstract class ScenarioSearchV2(
     fun search() = runBlocking {
         val objs = listOf(
             someCreateTask,
-            someCreateTask.copy(status = Status.HOLD),
-            someCreateTask.copy(status = Status.TO_DO),
+            someCreateTask.copy(category = Category.PERSONAL),
+            someCreateTask.copy(category = Category.HI),
         ).map { obj ->
             val resCreate = client.sendAndReceive(
                 "task/create", TaskCreateRequest(

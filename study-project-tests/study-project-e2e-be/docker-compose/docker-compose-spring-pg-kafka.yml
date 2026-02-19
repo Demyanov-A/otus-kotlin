@@ -21,6 +21,8 @@ services:
     depends_on:
       psql:
         condition: service_healthy
+      kafka:
+        condition: service_healthy
       liquibase:
         condition: service_completed_successfully
     healthcheck:
@@ -73,3 +75,8 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+    healthcheck:
+      test: "/opt/kafka/bin/kafka-cluster.sh cluster-id --bootstrap-server localhost:9092 || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 3

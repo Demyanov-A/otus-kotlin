@@ -1,5 +1,6 @@
 package ru.demyanovaf.kotlin.taskManager.blackbox.fixture.client
 
+import kotlinx.coroutines.delay
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.clients.producer.KafkaProducer
@@ -7,7 +8,8 @@ import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
-import base.DockerCompose
+import ru.demyanovaf.kotlin.taskManager.e2e.be.base.DockerCompose
+import ru.demyanovaf.kotlin.taskManager.e2e.be.base.client.Client
 import java.time.Duration
 import java.util.UUID
 
@@ -15,6 +17,7 @@ import java.util.UUID
  * Отправка запросов в очереди kafka
  */
 class KafkaClient(dockerCompose: DockerCompose) : Client {
+    private var d = 25000L
     private val host by lazy {
         val url = dockerCompose.inputUrl
         "${url.host}:${url.port}"
@@ -38,7 +41,7 @@ class KafkaClient(dockerCompose: DockerCompose) : Client {
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java
             )
         ).also {
-            it.subscribe(versions.map { "taskManager-out-$it" })
+            it.subscribe(versions.map { "taskManager-task-$it-out" })
         }
     }
     private var counter = 0
@@ -49,10 +52,13 @@ class KafkaClient(dockerCompose: DockerCompose) : Client {
             throw UnsupportedOperationException("Unknown version $version")
         }
 
-        counter += 1
-        producer.send(ProducerRecord("taskManager-in-$version", "test-$counter", request)).get()
+        delay(d)
+        d = 0L
 
-        val read = consumer.poll(Duration.ofSeconds(20))
+        counter += 1
+        producer.send(ProducerRecord("taskManager-task-$version-in", "test-$counter", request)).get()
+
+        val read = consumer.poll(Duration.ofSeconds(10))
         return read.firstOrNull()?.value() ?: ""
     }
 }

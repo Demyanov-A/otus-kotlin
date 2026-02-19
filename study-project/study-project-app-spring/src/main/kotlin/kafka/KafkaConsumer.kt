@@ -23,8 +23,6 @@ import ru.demyanovaf.kotlin.taskManager.app.spring.base.ConsumerStrategyV2
 import ru.demyanovaf.kotlin.taskManager.app.spring.base.IConsumerStrategy
 import ru.demyanovaf.kotlin.taskManager.app.spring.base.MgrAppSettings
 import ru.demyanovaf.kotlin.taskManager.app.spring.config.KafkaConfig
-import ru.demyanovaf.kotlin.taskManager.app.spring.config.createKafkaConsumer
-import ru.demyanovaf.kotlin.taskManager.app.spring.config.createKafkaProducer
 import java.time.Duration
 import java.util.UUID
 import kotlin.collections.forEach
@@ -34,11 +32,11 @@ import kotlin.collections.forEach
 @Component
 class KafkaConsumer(
     private val appSettings: MgrAppSettings,
-    private val config: KafkaConfig
-) {
-    private val consumerStrategies = listOf(ConsumerStrategyV1(), ConsumerStrategyV2())
-    private val consumer: Consumer<String, String> = config.createKafkaConsumer()
+    consumerStrategies: List<IConsumerStrategy> = listOf(ConsumerStrategyV1(), ConsumerStrategyV2()),
+    private val config: KafkaConfig,
+    private val consumer: Consumer<String, String> = config.createKafkaConsumer(),
     private val producer: Producer<String, String> = config.createKafkaProducer()
+) : AutoCloseable {
     private val log = appSettings.corSettings.loggerProvider.logger(this::class)
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private val process = atomic(true) // пояснить
@@ -104,6 +102,9 @@ class KafkaConsumer(
         withContext(Dispatchers.IO) {
             producer.send(resRecord)
         }
+    }
+    override fun close() {
+        process.value = false
     }
 
     private data class TopicsAndStrategy(
